@@ -6,31 +6,53 @@ function App() {
 
   const buttonStyles = 'bg-green-700'
   const groupName = useRef('')
-  const [validate, setValidate] = useState(false);
+  const [shouldValidate, setShouldValidate] = useState(false);
+  const [isValid, setIsValid] = useState(true);
+
 
   const updateGroupName = (e) => {
     groupName.current = e.target.value;
     console.log(groupName.current);
   }
 
+  const onChange = (e) => {
+    updateGroupName(e);
+
+    if (shouldValidate) {
+      validateInput(e);
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("submitting " + groupName.current);
-    setValidate(true);
+    setShouldValidate(true);
+
+    // validate once -> TODO: figure out how show message on first submission with invalid input
+    if (groupName.current === '')
+      setIsValid(false);
+
   }
 
   const validateInput = (e) => {
-    console.log('validating input');
+    console.log('validating input: ' + groupName.current);
+
+    if (groupName.current === '')
+        setIsValid(false);
+
+    else
+      setIsValid(true);
   }
 
 
   return (
     <>
-      <div className='flex-col flex my-6 gap-1'>
+      <div className='flex-col flex my-3 gap-1'>
         <label className='text-2xl' htmlFor='new-group-name'>Group Name:</label>
-        <input ref={groupName} onChange={updateGroupName} className='border-2 p-2' name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
+        <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
+        <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
       </div>
-      <Button click={onSubmit} classList={buttonStyles} text='Create Group' onChange={(validate) ? validateInput : undefined}/>
+      <Button click={onSubmit} classList={buttonStyles} text='Create Group' />
     </>
   )
 }
