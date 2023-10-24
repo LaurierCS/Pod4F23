@@ -22,7 +22,14 @@
 - 
 
 ### Setup
-```sh
+```api
+1.First install python, mongodb, django, djongo, in your local machine
+2.As we are using Mongodb as database so install with version command is pip install pymongo==3.12.3
+3. created superuser with
+email: optimeet123@gmail.com
+password: optimeet123
+username: admin
+
 $
 ```
 
