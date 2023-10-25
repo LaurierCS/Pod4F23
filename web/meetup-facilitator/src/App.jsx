@@ -7,7 +7,6 @@ function App() {
 
   const buttonStyles = 'bg-green-700'
   const groupName = useRef('')
-  const [shouldValidate, setShouldValidate] = useState(false);
   const [isValid, setIsValid] = useState(true);
 
 
@@ -18,24 +17,21 @@ function App() {
 
   const onChange = (e) => {
     updateGroupName(e);
-
-    if (shouldValidate) {
-      validateInput(e);
-    }
+    validateInput();
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("submitting " + groupName.current);
-    setShouldValidate(true);
 
-    // validate once -> TODO: figure out how show message on first submission with invalid input
-    if (groupName.current === '')
-      setIsValid(false);
+    // Validate once on submit
+    validateInput();
+
+    // if isValid -> make API call
 
   }
 
-  const validateInput = (e) => {
+  const validateInput = () => {
     console.log('validating input: ' + groupName.current);
 
     if (groupName.current === '')
