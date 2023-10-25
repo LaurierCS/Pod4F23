@@ -10,33 +10,26 @@ from . import models
 from . import serializers
 
 @csrf_exempt
-@api_view(['GET','POST'])
+@api_view(['POST'])
 def groups(request):
-    if request.method == 'GET':
-        groups = models.Group.objects.all()
-        serializer = serializers.GroupSerializer(groups, many = True)
-        return Response(serializer.data)
     
-    elif request.method == 'POST':
-
-        serializer = serializers.GroupSerializer(data = request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer = serializers.GroupSerializer(data = request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-@api_view(['GET', 'POST'])    
-def group_detail(request, group_id):
-    if request.method == 'GET':
-    
-        group = models.Group.objects.filter(id=group_id)
+@api_view(['GET'])    
+def group_detail(group_id):
 
-        
-        serializer = serializers.GroupSerializer(group, many = True)
-        return Response(serializer.data)
+    group = models.Group.objects.filter(id=group_id)
     
-    elif request.method == 'POST':
-        pass 
+    serializer = serializers.GroupSerializer(group, many = True)
+    return Response(serializer.data)
+    
+
 
 
