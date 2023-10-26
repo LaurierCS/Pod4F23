@@ -23,7 +23,7 @@ def groups(request):
 
 @csrf_exempt
 @api_view(['GET'])    
-def group_detail(group_id):
+def group_detail(request, group_id):
 
     group = models.Group.objects.filter(id=group_id)
     
