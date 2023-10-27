@@ -1,18 +1,23 @@
 import './App.css'
 import Home from './pages/Home'
 import Login from './pages/Login'
-import { useRef, useState } from 'react'
-import GoogleAuth from './features/GoogleAuth'
+import {  useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { MyContext } from './MyContext'
 
 function App() {
 
+  const [isAuthorized, setIsAuthorized] = useState(false);
+
   return (
-    <Router>
-      <Login/>
-      <Home />
-      
-    </Router>
+    <MyContext.Provider value={{ isAuthorized, setIsAuthorized }}>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Login/>} />
+          <Route path='home' element={ <Home isAuthorized={isAuthorized}/>} />
+        </Routes>
+      </Router>
+    </MyContext.Provider>
   )
 }
 

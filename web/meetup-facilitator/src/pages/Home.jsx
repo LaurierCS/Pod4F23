@@ -1,43 +1,50 @@
+import { Navigate } from 'react-router-dom';
 import Button from '../components/Button'
-import { useRef, useState } from 'react'
+import { useRef, useState, useContext } from 'react'
+import { MyContext } from '../MyContext';
 
 function Home() {
 
+    const  { isAuthorized, setIsAuthorized } = useContext(MyContext);
+
+    if (!isAuthorized)
+        return ( <Navigate to={'/'}/> )
+
     const buttonStyles = 'bg-green-700'
-  const groupName = useRef('')
-  const [isValid, setIsValid] = useState(true);
+    const groupName = useRef('')
+    const [isValid, setIsValid] = useState(true);
 
 
-  const updateGroupName = (e) => {
-    groupName.current = e.target.value;
-    console.log(groupName.current);
-  }
+    const updateGroupName = (e) => {
+        groupName.current = e.target.value;
+        console.log(groupName.current);
+    }
 
-  const onChange = (e) => {
-    updateGroupName(e);
-    validateInput();
-  }
+    const onChange = (e) => {
+        updateGroupName(e);
+        validateInput();
+    }
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("submitting " + groupName.current);
+    const onSubmit = (e) => {
+        e.preventDefault();
+        console.log("submitting " + groupName.current);
 
-    // Validate once on submit
-    validateInput();
+        // Validate once on submit
+        validateInput();
 
-    // if isValid -> make API call
+        // if isValid -> make API call
 
-  }
+    }
 
-  const validateInput = () => {
-    console.log('validating input: ' + groupName.current);
+    const validateInput = () => {
+        console.log('validating input: ' + groupName.current);
 
-    if (groupName.current === '')
-        setIsValid(false);
+        if (groupName.current === '')
+            setIsValid(false);
 
-    else
-      setIsValid(true);
-  }
+        else
+        setIsValid(true);
+    }
  return (
     <>
         <div className='flex-col flex my-3 gap-1'>
