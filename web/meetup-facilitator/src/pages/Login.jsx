@@ -7,7 +7,7 @@ function Login() {
     return (
         <>
             <h1>Welcome to Optimeet</h1>
-        <   GoogleAuth/>
+            <GoogleAuth/>
         </>
         
     )

@@ -1,12 +1,17 @@
 import { GoogleLogin } from '@react-oauth/google'
-import { useState} from 'react';
+import { useState, useContext  } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../MyContext';
 
 function GoogleAuth() {
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [pictureURL, setPictureURL] = useState('');
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    // const [isAuthorized, setIsAuthorized] = useState(false);
+    const  { isAuthorized, setIsAuthorized } = useContext(MyContext);
+    const navigate = useNavigate();
+    
 
 
     const responseMessage = (response) => {
@@ -18,6 +23,8 @@ function GoogleAuth() {
             setName(decodedJWT.given_name + ' ' + decodedJWT.family_name);
             setPictureURL(decodedJWT.picture);
             setIsAuthorized(true);
+            navigate('/home');
+
         }
     };
 
