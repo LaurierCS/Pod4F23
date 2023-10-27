@@ -33,7 +33,6 @@ function GoogleAuth() {
             <div className="email">{email}</div>
             <img src={pictureURL} alt='Your google profile picture' referrerPolicy="no-referrer"/>
         </div>
-        <h1>Welcome to Optimeet</h1>
         <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
     </div>
   )
