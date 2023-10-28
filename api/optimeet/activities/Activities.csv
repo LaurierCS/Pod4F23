@@ -1,0 +1,37 @@
+Category,SubCategory,Google API Key
+Food and Dining,Cafes,https://maps.googleapis.com/maps/api/place/textsearch/json?query=cafes&key=
+Food and Dining,Restaurants,https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants&key=
+Food and Dining,Food Markets,https://maps.googleapis.com/maps/api/place/textsearch/json?query=food+markets&key=
+Food and Dining,Bars,https://maps.googleapis.com/maps/api/place/textsearch/json?query=bars&key=
+Food and Dining,Bakery,https://maps.googleapis.com/maps/api/place/textsearch/json?query=bakery&key=
+Lively Indoor Entertainment,Movie Theatres,https://maps.googleapis.com/maps/api/place/textsearch/json?query=movie+theatres&key=
+Lively Indoor Entertainment,Arcades,https://maps.googleapis.com/maps/api/place/textsearch/json?query=arcades&key=
+Lively Indoor Entertainment,Karaoke Bars,https://maps.googleapis.com/maps/api/place/textsearch/json?query=karaoke+bars&key=
+Lively Indoor Entertainment,Bowling Alley,https://maps.googleapis.com/maps/api/place/textsearch/json?query=bowling+alley&key=
+Lively Indoor Entertainment,Night Club,https://maps.googleapis.com/maps/api/place/textsearch/json?query=night+club&key=
+Relaxation and Leisure,Spa,https://maps.googleapis.com/maps/api/place/textsearch/json?query=spa&key=
+Relaxation and Leisure,Shopping Mall,https://maps.googleapis.com/maps/api/place/textsearch/json?query=shopping+mall&key=
+Relaxation and Leisure,Bookstore,https://maps.googleapis.com/maps/api/place/textsearch/json?query=bookstore&key=
+Relaxation and Leisure,Library,https://maps.googleapis.com/maps/api/place/textsearch/json?query=library&key=
+Relaxation and Leisure,Museum,https://maps.googleapis.com/maps/api/place/textsearch/json?query=museum&key=
+Relaxation and Leisure,Aquarium,https://maps.googleapis.com/maps/api/place/textsearch/json?query=aquarium&key=
+Relaxation and Leisure,Art Gallery,https://maps.googleapis.com/maps/api/place/textsearch/json?query=art+gallery&key=
+Relaxation and Leisure,Jewelry Store,https://maps.googleapis.com/maps/api/place/textsearch/json?query=jewelry+store&key=
+Relaxation and Leisure,Clothing Store,https://maps.googleapis.com/maps/api/place/textsearch/json?query=clothing+store&key=
+Nature and Outdoors,Parks,https://maps.googleapis.com/maps/api/place/textsearch/json?query=parks&key=
+Nature and Outdoors,Beaches and Waterfronts,https://maps.googleapis.com/maps/api/place/textsearch/json?query=beaches+and+waterfronts&key=
+Nature and Outdoors,Amusement Park,https://maps.googleapis.com/maps/api/place/textsearch/json?query=amusement+park&key=
+Nature and Outdoors,Hiking Trails,https://maps.googleapis.com/maps/api/place/textsearch/json?query=hiking+trails&key=
+Nature and Outdoors,Botanical Gardens,https://maps.googleapis.com/maps/api/place/textsearch/json?query=botanical+gardens&key=
+Nature and Outdoors,Zoo,https://maps.googleapis.com/maps/api/place/textsearch/json?query=zoo&key=
+Nature and Outdoors,Florist,https://maps.googleapis.com/maps/api/place/textsearch/json?query=florist&key=
+Health and Wellness,Spa and Wellness Centers,https://maps.googleapis.com/maps/api/place/textsearch/json?query=spa+and+wellness+centers&key=
+Health and Wellness,Yoga and Meditation Studios,https://maps.googleapis.com/maps/api/place/textsearch/json?query=yoga+and+meditation+studios&key=
+Health and Wellness,Gym or Fitness Studios gym,https://maps.googleapis.com/maps/api/place/textsearch/json?query=gym&key=
+Health and Wellness,Nail Salon,https://maps.googleapis.com/maps/api/place/textsearch/json?query=nail+salon&key=
+Health and Wellness,Beauty Salon,https://maps.googleapis.com/maps/api/place/textsearch/json?query=beauty+salon&key=
+Sports and Recreation,Community Centers,https://maps.googleapis.com/maps/api/place/textsearch/json?query=community+centers&key=
+Sports and Recreation,Rock Climbing Gym,https://maps.googleapis.com/maps/api/place/textsearch/json?query=rock+climbing+gym&key=
+Sports and Recreation,Golf Course,https://maps.googleapis.com/maps/api/place/textsearch/json?query=golf+course&key=
+Sports and Recreation,Indoor Trampoline Parks,https://maps.googleapis.com/maps/api/place/textsearch/json?query=indoor+trampoline+parks&key=
+Sports and Recreation,Swimming Pool,https://maps.googleapis.com/maps/api/place/textsearch/json?query=swimming+pool&key=
