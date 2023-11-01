@@ -1,18 +1,23 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button'
-import { useRef, useState } from 'react'
-import Login from './Login';
+import { useEffect, useRef, useState } from 'react'
+import Navbar from '../components/Navbar';
 
 function Home() {
 
 
-    if (!sessionStorage.getItem('user')) {
-        return ( <Navigate to={'/'}/> )
-    }
-
     const buttonStyles = 'bg-green-700'
     const groupName = useRef('')
     const [isValid, setIsValid] = useState(true);
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!sessionStorage.getItem('user')) {
+            navigate('/login');
+        }
+    })
+    
 
 
     const updateGroupName = (e) => {
@@ -46,24 +51,18 @@ function Home() {
         setIsValid(true);
     }
 
-if (!sessionStorage.getItem('user')) {
-    return (
-        <Login />
-    )
-}
-else {
-    return (
-        <>
-            <div className='flex-col flex my-3 gap-1'>
-            <label className='text-2xl' htmlFor='new-group-name'>Group Name:</label>
-            <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
-            <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
-          </div>
-          <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
-        </>
-            
-     )
-}
+return (
+    <>
+        <Navbar />
+        <div className='flex-col flex my-3 gap-1'>
+        <label className='text-2xl' htmlFor='new-group-name'>Group Name:</label>
+        <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
+        <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
+      </div>
+      <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+    </>
+        
+ )
 
 }
 

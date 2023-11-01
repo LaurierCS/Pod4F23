@@ -1,11 +1,10 @@
 import { GoogleLogin } from '@react-oauth/google'
 import { useState  } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function GoogleAuth() {
 
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [pictureURL, setPictureURL] = useState('');
+    const navigate = useNavigate();
     
 
     const responseMessage = (response) => {
@@ -13,13 +12,13 @@ function GoogleAuth() {
         const decodedJWT = JSON.parse(atob(response.credential.split('.')[1]))
         console.log(decodedJWT);
         if(Object.keys(decodedJWT).length === 15) {
-            setEmail(decodedJWT.email);
-            setName(decodedJWT.given_name + ' ' + decodedJWT.family_name);
-            setPictureURL(decodedJWT.picture);
-            setIsAuthorized(true);
+
+            sessionStorage.setItem('name', decodedJWT.given_name + ' ' + decodedJWT.family_name);
+            sessionStorage.setItem('pictureURL', decodedJWT.picture);
 
             // Cache user token in session storage to persist user authorization until the browser is closed.
             sessionStorage.setItem("user", response.credential);
+            navigate('/')
 
         }
     };
@@ -31,11 +30,6 @@ function GoogleAuth() {
 
   return (
     <div>
-        <div className={`${(isAuthorized) ? 'visible' : 'invisible'}`}>
-            <div className="name">{name}</div>
-            <div className="email">{email}</div>
-            <img src={pictureURL} alt='Your google profile picture' referrerPolicy="no-referrer"/>
-        </div>
         <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
     </div>
   )
