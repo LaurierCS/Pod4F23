@@ -1,18 +1,12 @@
 import { GoogleLogin } from '@react-oauth/google'
-import { useState, useContext  } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MyContext } from '../MyContext';
+import { useState  } from 'react';
 
 function GoogleAuth() {
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [pictureURL, setPictureURL] = useState('');
-    // const [isAuthorized, setIsAuthorized] = useState(false);
-    const  { isAuthorized, setIsAuthorized } = useContext(MyContext);
-    const navigate = useNavigate();
     
-
 
     const responseMessage = (response) => {
         console.log(response);
@@ -23,7 +17,9 @@ function GoogleAuth() {
             setName(decodedJWT.given_name + ' ' + decodedJWT.family_name);
             setPictureURL(decodedJWT.picture);
             setIsAuthorized(true);
-            navigate('/home');
+
+            // Cache user token in session storage to persist user authorization until the browser is closed.
+            sessionStorage.setItem("user", response.credential);
 
         }
     };
