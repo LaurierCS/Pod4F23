@@ -20,7 +20,7 @@ function GoogleAuth() {
             localStorage.setItem("user", response.credential);
 
             // Hash the user's email and store in cookies
-            document.cookie = `email=${sha256(decodedJWT.email)};`;
+            localStorage.setItem("email", sha256(decodedJWT.email));
 
             navigate('/')
 
