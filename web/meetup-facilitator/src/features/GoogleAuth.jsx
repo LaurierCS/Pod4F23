@@ -1,5 +1,6 @@
 import { GoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom';
+import { sha256 } from 'js-sha256'
 
 function GoogleAuth() {
 
@@ -17,6 +18,10 @@ function GoogleAuth() {
 
             // Cache user token in session storage to persist user authorization until the browser is closed.
             localStorage.setItem("user", response.credential);
+
+            // Hash the user's email and store in cookies
+            document.cookie = `email=${sha256(decodedJWT.email)};`;
+
             navigate('/')
 
         }
