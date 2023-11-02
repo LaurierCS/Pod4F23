@@ -8,9 +8,9 @@ function Navbar() {
 
     useEffect(() => {
 
-        if (sessionStorage.getItem('user')) {
-            setName(sessionStorage.getItem('name'));
-            setPictureURL(sessionStorage.getItem('pictureURL'));
+        if (localStorage.getItem('user')) {
+            setName(localStorage.getItem('name'));
+            setPictureURL(localStorage.getItem('pictureURL'));
         }
 
     }, []);

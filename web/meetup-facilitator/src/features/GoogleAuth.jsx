@@ -1,5 +1,4 @@
 import { GoogleLogin } from '@react-oauth/google'
-import { useState  } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function GoogleAuth() {
@@ -13,11 +12,11 @@ function GoogleAuth() {
         console.log(decodedJWT);
         if(Object.keys(decodedJWT).length === 15) {
 
-            sessionStorage.setItem('name', decodedJWT.given_name + ' ' + decodedJWT.family_name);
-            sessionStorage.setItem('pictureURL', decodedJWT.picture);
+            localStorage.setItem('name', decodedJWT.given_name + ' ' + decodedJWT.family_name);
+            localStorage.setItem('pictureURL', decodedJWT.picture);
 
             // Cache user token in session storage to persist user authorization until the browser is closed.
-            sessionStorage.setItem("user", response.credential);
+            localStorage.setItem("user", response.credential);
             navigate('/')
 
         }

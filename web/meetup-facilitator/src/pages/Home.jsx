@@ -13,7 +13,7 @@ function Home() {
 
 
     useEffect(() => {
-        if (!sessionStorage.getItem('user')) {
+        if (!localStorage.getItem('user')) {
             navigate('/login');
         }
     })
