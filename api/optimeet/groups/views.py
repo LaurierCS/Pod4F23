@@ -15,13 +15,19 @@ from . import serializers
 @api_view(['POST'])
 def groups(request):
     
-    serializer = serializers.GroupSerializer(data = request.data)
+    get_id = rnd_id()
+
+    request_data = request.data.copy()
+    id = {'group_id':get_id}
+    request_data.update(id)
+
+    serializer = serializers.GroupSerializer(data = request_data)
     
     if serializer.is_valid():
         serializer.save()
-        print("good")
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+            
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @csrf_exempt
