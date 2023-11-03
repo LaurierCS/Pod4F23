@@ -5,7 +5,9 @@ from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework import status
+from django import db
 
+from .models import rnd_id
 from . import models
 from . import serializers
 
@@ -17,10 +19,11 @@ def groups(request):
     
     if serializer.is_valid():
         serializer.save()
+        print("good")
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
 @csrf_exempt
 @api_view(['GET'])    
 def group_detail(request, group_id):
