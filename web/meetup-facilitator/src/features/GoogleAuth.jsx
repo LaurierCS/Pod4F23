@@ -1,23 +1,29 @@
 import { GoogleLogin } from '@react-oauth/google'
-import { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { sha256 } from 'js-sha256'
 
 function GoogleAuth() {
 
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [pictureURL, setPictureURL] = useState('');
-    const [isAuthorized, setIsAuthorized] = useState(false);
-
+    const navigate = useNavigate();
+    
 
     const responseMessage = (response) => {
         console.log(response);
         const decodedJWT = JSON.parse(atob(response.credential.split('.')[1]))
         console.log(decodedJWT);
         if(Object.keys(decodedJWT).length === 15) {
-            setEmail(decodedJWT.email);
-            setName(decodedJWT.given_name + ' ' + decodedJWT.family_name);
-            setPictureURL(decodedJWT.picture);
-            setIsAuthorized(true);
+
+            localStorage.setItem('name', decodedJWT.given_name + ' ' + decodedJWT.family_name);
+            localStorage.setItem('pictureURL', decodedJWT.picture);
+
+            // Cache user token in session storage to persist user authorization until the browser is closed.
+            localStorage.setItem("user", response.credential);
+
+            // Hash the user's email and store in cookies
+            localStorage.setItem("email", sha256(decodedJWT.email));
+
+            navigate('/')
+
         }
     };
 
@@ -28,12 +34,6 @@ function GoogleAuth() {
 
   return (
     <div>
-        <div className={`${(isAuthorized) ? 'visible' : 'invisible'}`}>
-            <div className="name">{name}</div>
-            <div className="email">{email}</div>
-            <img src={pictureURL} alt='Your google profile picture' referrerPolicy="no-referrer"/>
-        </div>
-        <h1>Welcome to Optimeet</h1>
         <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
     </div>
   )
