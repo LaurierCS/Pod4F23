@@ -1,9 +1,5 @@
 from typing import Any
 from django.db import models
-from random import randint
-import django
-
-def rnd_id(): return randint(1000000000,9999999999)
 
 class Group(models.Model):
         

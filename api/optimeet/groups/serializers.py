@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from . import models
-from .models import rnd_id
+from random import randint
+
+def rnd_id(): return randint(1000000000,9999999999)
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
