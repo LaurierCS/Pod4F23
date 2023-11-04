@@ -7,21 +7,14 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django import db
 
-from .models import rnd_id
 from . import models
 from . import serializers
 
 @csrf_exempt
 @api_view(['POST'])
 def groups(request):
-    
-    get_id = rnd_id()
 
-    request_data = request.data.copy()
-    id = {'group_id':get_id}
-    request_data.update(id)
-
-    serializer = serializers.GroupSerializer(data = request_data)
+    serializer = serializers.GroupSerializer(data = request.data)
     
     if serializer.is_valid():
         serializer.save()
@@ -34,7 +27,7 @@ def groups(request):
 @api_view(['GET'])    
 def group_detail(request, group_id):
 
-    group = models.Group.objects.filter(id=group_id)
+    group = models.Group.objects.filter(group_id=group_id)
     
     serializer = serializers.GroupSerializer(group, many = True)
     return Response(serializer.data)

@@ -12,7 +12,7 @@ class Group(models.Model):
     
     status_choices = [(ACTIVE, "Active"), (FINISHED, "Finished")]
         
-    group_id = models.CharField(max_length=10, primary_key=True) 
+    group_id = models.CharField(max_length=10, primary_key=True, blank=True) 
         
     name = models.CharField(max_length = 30)
     host_id = models.CharField(max_length=64)
