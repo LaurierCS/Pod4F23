@@ -12,20 +12,21 @@ from . import serializers
 @csrf_exempt
 @api_view(['POST'])
 def groups(request):
-    
+
     serializer = serializers.GroupSerializer(data = request.data)
     
     if serializer.is_valid():
         serializer.save()
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+            
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
 @csrf_exempt
 @api_view(['GET'])    
 def group_detail(request, group_id):
 
-    group = models.Group.objects.filter(id=group_id)
+    group = models.Group.objects.filter(group_id=group_id)
     
     serializer = serializers.GroupSerializer(group, many = True)
     return Response(serializer.data)
