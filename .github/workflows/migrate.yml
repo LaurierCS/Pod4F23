@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEBUG: 0
-      DB_HOST: ${{ vars.DB_HOST }}
-      DB_PORT: ${{ vars.DB_PORT }}
-      DB_NAME: ${{ vars.DB_NAME }}
-      DB_USER: ${{ vars.DB_USER }}
-      DB_PASS: ${{ vars.DB_PASS }}
+      DB_HOST: ${{ env.DB_HOST }}
+      DB_PORT: ${{ env.DB_PORT }}
+      DB_NAME: ${{ env.DB_NAME }}
+      DB_USER: ${{ env.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
     defaults:
       run:
         working-directory: ./api/optimeet/
