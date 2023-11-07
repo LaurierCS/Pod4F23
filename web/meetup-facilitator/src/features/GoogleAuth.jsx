@@ -28,7 +28,7 @@ function GoogleAuth() {
     };
 
     const errorMessage = (error) => {
-        console.log(import.meta.VITE_CLIENT_ID);
+        console.log(import.meta.env.VITE_CLIENT_ID);
         console.log(error); 
     };
 
