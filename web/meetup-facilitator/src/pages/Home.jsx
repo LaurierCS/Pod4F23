@@ -61,7 +61,7 @@ function Home() {
             status: "A"
         }
 
-        fetch(import.meta.env.VITE_SERVER + "groups", {
+        fetch(import.meta.env.VITE_SERVER + "groups/", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
