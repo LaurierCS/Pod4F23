@@ -93,7 +93,7 @@ function Activities() {
     return (
         <>
             <Navbar />
-            <h1 className="m-4">Activities</h1>
+            <h1 className="m-4 text-4xl">Activities</h1>
             <ul className="grid grid-cols-3 gap-6">{mainCategories}</ul> 
         </>
     )
