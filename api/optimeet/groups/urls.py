@@ -5,5 +5,6 @@ app_name = "groups"
 
 urlpatterns = [
     path("", views.groups),
-    path("<int:group_id>/", views.group_detail)
+    path("<int:group_id>/", views.group_detail),
+    path("<int:group_id>/recs", views.get_recommendation)
 ]
