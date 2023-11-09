@@ -8,9 +8,8 @@ function GoogleAuth() {
     
 
     const responseMessage = (response) => {
-        console.log(response);
         const decodedJWT = JSON.parse(atob(response.credential.split('.')[1]))
-        console.log(decodedJWT);
+        
         if(Object.keys(decodedJWT).length === 15) {
 
             localStorage.setItem('name', decodedJWT.given_name + ' ' + decodedJWT.family_name);
@@ -28,7 +27,6 @@ function GoogleAuth() {
     };
 
     const errorMessage = (error) => {
-        console.log(import.meta.env.VITE_CLIENT_ID);
         console.log(error); 
     };
 
