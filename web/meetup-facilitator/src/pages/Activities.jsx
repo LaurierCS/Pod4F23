@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import Card from "../components/Card"
 import PopUp from "../components/PopUp";
+
+export  const activitiesContext = createContext();
 
 
 function Activities() {
@@ -11,35 +13,13 @@ function Activities() {
 
     const subactivities = Object.values(activities);
 
-    const hidePopUp = (e) => {
-
-        const popup = document.getElementById('popup');
-
-        if (popup !== e.target && !popup.contains(e.target)) {   
-            console.log("outside popup!")
-            setShowPopUp(false);
-          }
-    }
-
-    if (showPopUp) {
-        document.addEventListener('click', hidePopUp)
-    }
-    else
-        document.removeEventListener('click', hidePopUp)
-
-
-
     const mainCategories = Object.keys(activities).map((category, i) => {
-
-
-        const subcategories = Object.keys(subactivities[i]).map((activityName, index) => {
-            return <li key={index}>{activityName}</li>
-        })
 
         return (
             <li key={i}>
-                {/* <Card activity={category} subcategories={subcategories}/> */}
-                <Card activity={category} setShowPopUp={setShowPopUp} setTargetCategory={setTargetCategory} subcategories={Object.keys(subactivities[i])}/>
+                <activitiesContext.Provider value={{setShowPopUp, setTargetCategory}}>
+                    <Card activity={category} setShowPopUp={setShowPopUp} setTargetCategory={setTargetCategory} subcategories={Object.keys(subactivities[i])}/>
+                </activitiesContext.Provider>
             </li>
         )
     })
@@ -67,7 +47,9 @@ function Activities() {
             <h1 className="m-4 text-4xl">Activities</h1>
             <ul className="grid grid-cols-3 gap-6">{mainCategories}</ul> 
             <div id="popup">
-                <PopUp className={(showPopUp) ? "block" : "hidden"} subcategories={targetCategory} setShowPopUp={setShowPopUp}/>
+                {showPopUp && <activitiesContext.Provider value={{setShowPopUp}}>
+                        <PopUp className={(showPopUp) ? "block" : "hidden"} subcategories={targetCategory} setShowPopUp={setShowPopUp}/>
+                    </activitiesContext.Provider>}
             </div>
         </div>
     )

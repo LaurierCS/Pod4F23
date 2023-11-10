@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { activitiesContext } from "../pages/Activities";
 
 
-function Card({activity, subcategories, setShowPopUp, setTargetCategory} ) {
-    
+function Card({activity, subcategories} ) {
+
+    const context = useContext(activitiesContext);
 
     const handleOnClick = (e) => {
-        setShowPopUp(true);
-        console.log(e.target.textContent);
-        setTargetCategory(subcategories);
+        context.setShowPopUp(true);
+        context.setTargetCategory(subcategories);
     }
 
 
