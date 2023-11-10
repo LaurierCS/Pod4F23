@@ -1,5 +1,8 @@
 from typing import Any
 from django.db import models
+from django.contrib.auth.models import User
+
+
 
 class Group(models.Model):
         
@@ -14,4 +17,9 @@ class Group(models.Model):
     host_id = models.CharField(max_length=64)
     max_capacity = models.IntegerField(default=5)
     status = models.CharField(max_length=1, choices=status_choices, default = ACTIVE)  
-    
+
+class UserGroup(models.Model):
+    user_id = models.CharField(max_length=64)
+    group_id = models.CharField(max_length=10)
+    class Meta:
+        unique_together = [["group_id","user_id"]]
