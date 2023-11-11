@@ -44,11 +44,7 @@ def add_users_to_group(request, group_id):
     except models.Group.DoesNotExist:
         raise Http404  
     
-  #  groupdictionary = {
-  #  "group_id": group_id,
-  # }
-  #  groupdictionary.update(request.data)
-  #  serializer = serializers.UserGroupSerializer(data = groupdictionary)
+  
     serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group_id})
     
     
@@ -58,17 +54,17 @@ def add_users_to_group(request, group_id):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#for testing
-class UserGroupListAPIView(APIView):
-    def get(request, self):
-        user_groups = UserGroup.objects.all()
-        serializer = UserGroupSerializer(user_groups, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# #for testing
+# class UserGroupListAPIView(APIView):
+#     def get(request, self):
+#         user_groups = UserGroup.objects.all()
+#         serializer = UserGroupSerializer(user_groups, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
     
-#see all the groups a user is part of
-class UserGroupListAPIView(APIView):
-    def get(self, request, *args, **kwargs):
-        user_id = self.kwargs.get('user_id')
-        user_groups = UserGroup.objects.filter(user_id=user_id)
-        serializer = UserGroupSerializer(user_groups, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+# #see all the groups a user is part of
+# class UserGroupListAPIView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         user_id = self.kwargs.get('user_id')
+#         user_groups = UserGroup.objects.filter(user_id=user_id)
+#         serializer = UserGroupSerializer(user_groups, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
