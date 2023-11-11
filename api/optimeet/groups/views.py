@@ -30,7 +30,16 @@ def group_detail(request, group_id):
     
     serializer = serializers.GroupSerializer(group, many = True)
     return Response(serializer.data)
+
+@csrf_exempt
+@api_view(['GET'])    
+def get_recommendation(request, group_id):
     
+    recs = models.Recommendations.objects.filter(group_id=group_id)
+    
+    serializer = serializers.RecSerializer(recs, many = True)
+    
+    return Response(serializer.data)
 
 
 
