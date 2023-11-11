@@ -19,4 +19,6 @@ class UserGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGroup
         fields = '__all__'
-        
+    def create(self, validated_data):
+        validated_data['group_id'] = self.context['group_id']
+        return super(UserGroupSerializer, self).create(validated_data)

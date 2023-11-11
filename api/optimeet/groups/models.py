@@ -1,6 +1,6 @@
 from typing import Any
 from django.db import models
-from django.contrib.auth.models import User
+
 
 
 
@@ -20,6 +20,6 @@ class Group(models.Model):
 
 class UserGroup(models.Model):
     user_id = models.CharField(max_length=64)
-    group_id = models.CharField(max_length=10)
+    group_id = models.CharField(max_length=10, default="")
     class Meta:
         unique_together = [["group_id","user_id"]]

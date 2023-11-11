@@ -44,11 +44,12 @@ def add_users_to_group(request, group_id):
     except models.Group.DoesNotExist:
         raise Http404  
     
-    groupdictionary = {
-    "group_id": group_id,
-    }
-    groupdictionary.update(request.data)
-    serializer = serializers.UserGroupSerializer(data = groupdictionary)
+  #  groupdictionary = {
+  #  "group_id": group_id,
+  # }
+  #  groupdictionary.update(request.data)
+  #  serializer = serializers.UserGroupSerializer(data = groupdictionary)
+    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group_id})
     
     
     if serializer.is_valid():
