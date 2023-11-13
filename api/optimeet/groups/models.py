@@ -20,6 +20,6 @@ class Group(models.Model):
 
 class UserGroup(models.Model):
     user_id = models.CharField(max_length=64)
-    group_id = models.ForeignKey(Group, on_delete=models.CASCADE)
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
     class Meta:
         unique_together = [["group_id","user_id"]]
