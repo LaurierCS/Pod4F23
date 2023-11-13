@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button'
 import { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
@@ -12,11 +12,11 @@ function Home() {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        if (!localStorage.getItem('user')) {
-            navigate('/login');
-        }
-    })
+    // useEffect(() => {
+    //     if (!localStorage.getItem('user')) {
+    //         navigate('/login');
+    //     }
+    // })
     
 
 
@@ -60,7 +60,11 @@ return (
         <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
       </div>
       <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+      <Link to="/location">
+        <Button classList={buttonStyles} text="Preferences" />
+      </Link>
     </>
+    
         
  )
 
