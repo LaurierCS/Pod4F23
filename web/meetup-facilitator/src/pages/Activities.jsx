@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useRef, useState } from "react"
 import Card from "../components/Card"
 import PopUp from "../components/PopUp";
 
@@ -9,7 +9,8 @@ function Activities() {
 
     const [activities, setActivities] = useState({});
     const [showPopUp, setShowPopUp] = useState(false);
-    const [targetCategory, setTargetCategory] = useState([])
+    const [targetCategory, setTargetCategory] = useState([]);
+    const pendingPrefs = useRef({});
 
     const subactivities = Object.values(activities);
 
@@ -17,12 +18,14 @@ function Activities() {
 
         return (
             <li key={i}>
-                <activitiesContext.Provider value={{setShowPopUp, setTargetCategory}}>
-                    <Card activity={category} setShowPopUp={setShowPopUp} setTargetCategory={setTargetCategory} subcategories={Object.keys(subactivities[i])}/>
+                <activitiesContext.Provider value={{setShowPopUp, setTargetCategory, showPopUp}}>
+                    <Card activity={category} subcategories={Object.keys(subactivities[i])}/>
                 </activitiesContext.Provider>
             </li>
         )
     })
+
+    // TODO: parse pendingPrefs to build array of google-ids to make POST request
 
     useEffect(() => {
         if (!localStorage.getItem('user')) {
@@ -47,7 +50,7 @@ function Activities() {
             <h1 className="m-4 text-4xl">Activities</h1>
             <ul className="grid grid-cols-3 gap-6">{mainCategories}</ul> 
             <div id="popup">
-                {showPopUp && <activitiesContext.Provider value={{setShowPopUp}}>
+                {showPopUp && <activitiesContext.Provider value={{setShowPopUp, pendingPrefs}}>
                         <PopUp className={(showPopUp) ? "block" : "hidden"} subcategories={targetCategory} setShowPopUp={setShowPopUp}/>
                     </activitiesContext.Provider>}
             </div>
