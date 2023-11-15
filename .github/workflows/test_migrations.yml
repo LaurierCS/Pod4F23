@@ -1,0 +1,28 @@
+name: Django Test Migrations
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "api/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DEBUG: 1
+    defaults:
+      run:
+        working-directory: ./api/optimeet/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Migrate Local DB Should Not Throw Errors
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
