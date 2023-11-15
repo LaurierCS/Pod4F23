@@ -13,6 +13,7 @@ class GroupSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['group_id'] = rnd_id()
         return super(GroupSerializer, self).create(validated_data)
+
     
 
 class UserGroupSerializer(serializers.ModelSerializer): 
@@ -22,3 +23,10 @@ class UserGroupSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['group_id'] = self.context['group_id']
         return super(UserGroupSerializer, self).create(validated_data)
+
+
+class RecSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Recommendations
+        fields = '__all__'
+
