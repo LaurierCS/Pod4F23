@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Lin
 
 export default function TimeHour() {
   const location = useLocation();
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate(); 
   const searchParams = new URLSearchParams(location.search);
   const dates = JSON.parse(searchParams.get("dates"));
 
