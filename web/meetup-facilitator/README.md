@@ -1,15 +1,7 @@
-# React + Vite
+## Setup
+1. Install dependencies with `npm i`.
+2. Create `.env` file in base directory with the `VITE_CLIENT_ID` variable.
 
-React app created using Vite.
 
-For continous slider
-npm install @mui/material @emotion/react @emotion/styled
-npm install react-slider
-
-For react navbar etc
-npm install react-router-dom
-npm install react-dom
-
-For google maps
-npm install --save react-google-maps
-npm install react-places-autocomplete
+## Run
+Run `npm run dev` to start the server.

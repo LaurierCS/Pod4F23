@@ -37,7 +37,9 @@ function Home() {
         // Validate once on submit
         validateInput();
 
-        // if isValid -> make API call
+        // if isValid -> make API 
+        if (isValid)
+            createGroup();
 
     }
 
@@ -49,6 +51,27 @@ function Home() {
 
         else
         setIsValid(true);
+    }
+
+    const createGroup = () => {
+        const data = {
+            name: groupName.current,
+            host_id: localStorage.getItem('email'),
+            max_capacity: 5,
+            status: "A"
+        }
+
+        fetch(import.meta.env.VITE_SERVER + "groups/", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => console.log(response.json()))
+
+        
+
     }
 
 return (
