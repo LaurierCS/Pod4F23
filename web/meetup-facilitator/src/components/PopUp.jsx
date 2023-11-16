@@ -19,17 +19,17 @@ function PopUp({subcategories}) {
     }
 
     return (
-        <div id="pop-up" className="absolute left-1/3 top-1/3 bg-gray-500 p-7">
+        <form id="activities-pop-up" className="absolute left-1/3 top-1/3 bg-gray-500 p-7">
             { Object.keys(subcategories).map((activity, i) => {
             return ( 
-                <form key={i}>
+                <div key={i}>
                     <label htmlFor={activity}>{activity}</label>
-                    <input value={activity} name="activity_pref" id={subcategories[activity]} type="radio" defaultChecked={activity in pendingPrefs && pendingPrefs[activity]}/>
-                </form>
+                    <input value={activity} name="activity_pref" id={subcategories[activity]} type="checkbox" defaultChecked={subcategories[activity] in pendingPrefs && pendingPrefs[subcategories[activity]]}/>
+                </div>
             )
             })}
             <Button click={hidePopUp} text="Save" classList="bg-green-500"/>
-        </div>    
+        </form>    
     )
 
 
