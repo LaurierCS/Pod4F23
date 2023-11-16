@@ -23,7 +23,7 @@ function PopUp({subcategories}) {
             { Object.keys(subcategories).map((activity, i) => {
             return ( 
                 <div key={i}>
-                    <label htmlFor={activity}>{activity}</label>
+                    <label htmlFor={subcategories[activity]}>{activity}</label>
                     <input value={activity} name="activity_pref" id={subcategories[activity]} type="checkbox" defaultChecked={subcategories[activity] in pendingPrefs && pendingPrefs[subcategories[activity]]}/>
                 </div>
             )
