@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button'
 import { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
@@ -37,7 +37,9 @@ function Home() {
         // Validate once on submit
         validateInput();
 
-        // if isValid -> make API call
+        // if isValid -> make API 
+        if (isValid)
+            createGroup();
 
     }
 
@@ -51,6 +53,27 @@ function Home() {
         setIsValid(true);
     }
 
+    const createGroup = () => {
+        const data = {
+            name: groupName.current,
+            host_id: localStorage.getItem('email'),
+            max_capacity: 5,
+            status: "A"
+        }
+
+        fetch(import.meta.env.VITE_SERVER + "groups/", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => console.log(response.json()))
+
+        
+
+    }
+
 return (
     <>
         <Navbar />
@@ -60,7 +83,13 @@ return (
         <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
       </div>
       <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+      <Link to="/time">
+        <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
+          Next: Time Selection
+        </button>
+      </Link>
     </>
+    
         
  )
 
