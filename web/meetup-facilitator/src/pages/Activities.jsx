@@ -24,8 +24,13 @@ function Activities() {
             </li>
         )
     })
-    console.log(pendingPrefs.current);
-    // TODO: parse pendingPrefs to build array of google-ids to make POST request
+
+    // To be sent to server
+    const data = []
+    Object.keys(pendingPrefs.current).forEach( (activity) => {
+        if (pendingPrefs.current[activity])
+            data.push(activity);
+    })
 
     useEffect(() => {
         if (!localStorage.getItem('user')) {
