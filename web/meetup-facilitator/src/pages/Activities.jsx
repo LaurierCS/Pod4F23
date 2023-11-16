@@ -19,12 +19,12 @@ function Activities() {
         return (
             <li key={i}>
                 <activitiesContext.Provider value={{setShowPopUp, setTargetCategory, showPopUp}}>
-                    <Card activity={category} subcategories={Object.keys(subactivities[i])}/>
+                    <Card activity={category} subcategories={subactivities[i]}/>
                 </activitiesContext.Provider>
             </li>
         )
     })
-
+    console.log(pendingPrefs.current);
     // TODO: parse pendingPrefs to build array of google-ids to make POST request
 
     useEffect(() => {

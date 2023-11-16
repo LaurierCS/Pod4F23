@@ -20,11 +20,11 @@ function PopUp({subcategories}) {
 
     return (
         <div id="pop-up" className="absolute left-1/3 top-1/3 bg-gray-500 p-7">
-            { subcategories.map((activity, i) => {
+            { Object.keys(subcategories).map((activity, i) => {
             return ( 
                 <form key={i}>
                     <label htmlFor={activity}>{activity}</label>
-                    <input value={activity} name="activity_pref" id={activity} type="radio" defaultChecked={activity in pendingPrefs && pendingPrefs[activity]}/>
+                    <input value={activity} name="activity_pref" id={subcategories[activity]} type="radio" defaultChecked={activity in pendingPrefs && pendingPrefs[activity]}/>
                 </form>
             )
             })}
