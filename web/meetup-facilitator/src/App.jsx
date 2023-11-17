@@ -2,8 +2,10 @@ import './App.css'
 import Home from './pages/Home'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Login from './pages/Login'
+import Activities from './pages/Activities'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
+
 function App() {
 
 
@@ -11,6 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
+          <Route path='/activities' element={<Activities/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/time' element={<TimeMain/>}/>
           <Route path='/timehour' element={<TimeHour/>}/>
