@@ -54,12 +54,31 @@ def add_users_to_group(request, group_id):
         raise Http404  
     
   
-    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group_id})
+    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group})
     
     
     if serializer.is_valid():
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@api_view(['POST'])
+def add_preference_to_group(request, group_id, user_id, format=None):
+        # Check if the user group exists
+    try:
+        group = models.Group.objects.get(group_id=group_id)
+    except models.UserGroup.DoesNotExist:
+        raise Http404 
+
+    serializer = serializers.PreferencesSerializer(data=request.data, context={"group_id":group,"user_id":user_id}) 
+    
+    if serializer.is_valid():
+        # Save the preferences
+        serializer.save()
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

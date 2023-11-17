@@ -31,4 +31,14 @@ class Recommendations(models.Model):
     place_name = models.CharField(max_length=50)
     place_url = models.CharField(max_length=100)
     times = models.JSONField()
+
+class Preferences(models.Model):
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
+    user_id = models.CharField(max_length=64, blank=True)
     
+    category = models.JSONField(default=list)
+    subcategory = models.JSONField(default=list)
+    time = models.JSONField(default=list)
+    
+    loc_lat = models.FloatField(default=0)
+    loc_long = models.FloatField(default=0)
