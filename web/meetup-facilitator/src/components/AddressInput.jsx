@@ -6,7 +6,7 @@ const libraries = ['places'];
 const AddressInput = ({ onAddressChange }) => {
   const [address, setAddress] = useState('');
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: import.meta.env.API_KEY, // Add API_KEY to .env
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY, // Add API_KEY to .env
     libraries,
   });
 
