@@ -12,11 +12,11 @@ function Home() {
     const navigate = useNavigate();
 
 
-    // useEffect(() => {
-    //     if (!localStorage.getItem('user')) {
-    //         navigate('/login');
-    //     }
-    // })
+    useEffect(() => {
+        if (!localStorage.getItem('user')) {
+            navigate('/login');
+        }
+    })
     
 
 
