@@ -63,6 +63,34 @@ def add_users_to_group(request, group_id):
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
+@api_view(['GET'])  
+def votes(request, group_id):
+        votes = models.Votes.objects.filter(group_id=group_id)
+        serializer = serializers.VotesSerializer(votes, many=True)
+        return Response(serializer.data)
+    
+@csrf_exempt
+@api_view(['POST'])
+def create_vote(request, group_id):
+
+    try:
+        group = models.Group.objects.get(group_id=group_id)
+    except models.Group.DoesNotExist:
+        raise Http404  
+    
+    max_capacity = group.max_capacity
+    
+    request.data['max_capacity'] = max_capacity
+    request.data['group_id'] = group_id
+    
+    serializer = serializers.VotesSerializer(data=request.data, context={"group_id":group,"max_capacity":max_capacity})
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 # #for testing
 # class UserGroupListAPIView(APIView):
 #     def get(request, self):
