@@ -69,6 +69,9 @@ def add_preference_to_group(request, group_id, user_id, format=None):
         # Check if the user group exists
     try:
         group = models.Group.objects.get(group_id=group_id)
+        
+        user_group = models.UserGroup.objects.get(group_id=group_id, user_id=user_id)
+
     except models.UserGroup.DoesNotExist:
         raise Http404 
 

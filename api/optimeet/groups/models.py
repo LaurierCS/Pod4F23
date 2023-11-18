@@ -36,9 +36,9 @@ class Preferences(models.Model):
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
     user_id = models.CharField(max_length=64, blank=True)
     
-    category = models.JSONField(default=list)
-    subcategory = models.JSONField(default=list)
-    time = models.JSONField(default=list)
+    category = models.JSONField()
+    subcategory = models.JSONField()
+    time = models.JSONField()
     
-    loc_lat = models.FloatField(default=0)
-    loc_long = models.FloatField(default=0)
+    loc_lat = models.FloatField()
+    loc_long = models.FloatField()
