@@ -34,9 +34,3 @@ class VotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Votes
         fields = '__all__'
-    def create(self, validated_data):
-        group_id = self.context['group_id']
-        max_capacity = self.context['max_capacity']
-        validated_data['group_id'] = group_id
-        validated_data['max_capacity'] = max_capacity
-        return super().create(validated_data)

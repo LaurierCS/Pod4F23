@@ -33,21 +33,7 @@ class Recommendations(models.Model):
     times = models.JSONField()
     
 class Votes(models.Model):
-    
-    PREFERENCES_ACTIVE = "Preferences Active"
-    PREFERENCES_COMPLETE = "Preferences Complete"
-    RECOMMENDATION_ACTIVE = "Recommendation Active"
-    RECOMMENDATION_COMPLETE = "Recommendation Complete"
-    
-    voting_status_choices = [
-        (PREFERENCES_ACTIVE, "Preferences Active"),
-        (PREFERENCES_COMPLETE, "Preferences Complete"),
-        (RECOMMENDATION_ACTIVE, "Recommendation Active"),
-        (RECOMMENDATION_COMPLETE, "Recommendation Complete"),
-    ]
-
     group_id = models.ForeignKey(Group, related_name='group_votes', on_delete=models.CASCADE)
-    max_capacity = models.IntegerField(blank=True)
-    voting_status = models.CharField(max_length=50, choices=voting_status_choices, default=PREFERENCES_ACTIVE)
-    results_of_voted = models.JSONField(blank=True)
+    user_id = models.CharField(max_length=64, blank=True)
+    results_of_voted = models.CharField(max_length=64, blank=True)
     

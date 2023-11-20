@@ -12,6 +12,6 @@ urlpatterns = [
     #path('usergroups/<str:user_id>/', views.UserGroupListAPIView.as_view(), name='usergroup-byuser'),#get usergroup by user_id
     path("<int:group_id>/recs", views.get_recommendation),
     path("<int:group_id>/votes", views.votes, name='votes'),
-    path("<int:group_id>/votescreate", views.create_vote, name='create_vote'),
+    path("<int:group_id>/votes", views.create_vote, name='create_vote'),
 
 ]
