@@ -10,11 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.17",
+    "@react-google-maps/api": "^2.19.2",
     "@react-oauth/google": "^0.11.1",
     "js-sha256": "^0.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.17.0"
+    "react-places-autocomplete": "^7.3.0",
+    "react-router-dom": "^6.17.0",
+    "react-slider": "^2.0.6"
+    "react-multi-date-picker": "^4.4.1",
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

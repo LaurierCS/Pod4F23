@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button'
 import { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
@@ -83,7 +83,18 @@ return (
         <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
       </div>
       <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+
+      <Link to="/location">
+        <Button classList={buttonStyles} text="Preferences" />
+
+      <Link to="/time">
+        <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
+          Next: Time Selection
+        </button>
+
+      </Link>
     </>
+    
         
  )
 

@@ -5,9 +5,12 @@ from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework import status
+from rest_framework.views import APIView
 
 from . import models
+from .models import UserGroup
 from . import serializers
+from .serializers import UserGroupSerializer
 
 @csrf_exempt
 @api_view(['POST'])
@@ -41,5 +44,61 @@ def get_recommendation(request, group_id):
     
     return Response(serializer.data)
 
+##add user to group
+@csrf_exempt
+@api_view(['POST'])
+def add_users_to_group(request, group_id):
+    try:
+        group = models.Group.objects.get(pk=group_id)
+    except models.Group.DoesNotExist:
+        raise Http404  
+    
+  
+    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group})
+    
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@csrf_exempt
+@api_view(['POST'])
+def add_preference_to_group(request, group_id, user_id, format=None):
+        # Check if the user group exists
+    try:
+        group = models.Group.objects.get(group_id=group_id)
+        
+        user_group = models.UserGroup.objects.get(group_id=group_id, user_id=user_id)
 
+    except models.UserGroup.DoesNotExist:
+        raise Http404 
+
+    except models.Group.DoesNotExist:
+        raise Http404
+    
+    serializer = serializers.PreferencesSerializer(data=request.data, context={"group_id":group,"user_id":user_id}) 
+    
+    if serializer.is_valid():
+        # Save the preferences
+        serializer.save()
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# #for testing
+# class UserGroupListAPIView(APIView):
+#     def get(request, self):
+#         user_groups = UserGroup.objects.all()
+#         serializer = UserGroupSerializer(user_groups, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+# #see all the groups a user is part of
+# class UserGroupListAPIView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         user_id = self.kwargs.get('user_id')
+#         user_groups = UserGroup.objects.filter(user_id=user_id)
+#         serializer = UserGroupSerializer(user_groups, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
