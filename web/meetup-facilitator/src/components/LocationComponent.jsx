@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import GoogleMapComponent from './GoogleMapComponent';
 import AddressInput from './AddressInput';
 import { Link } from 'react-router-dom';
+import { preferencesContext } from '../pages/Preferences';
 
 function ContinuousSlider({ value, onChange }) {
   return (
@@ -26,14 +27,18 @@ function LocationComponent() {
   const [address, setAddress] = useState('');
   const [coordinates, setCoordinates] = useState(null);
   const [sliderValue, setSliderValue] = useState(30);
+  const prefsContext = useContext(preferencesContext);
 
   function handleAddressChange(newAddress, newCoordinates) {
     setAddress(newAddress);
     setCoordinates(newCoordinates);
+    prefsContext.updateLocationPrefs(newCoordinates, sliderValue);
   }
 
   const handleSliderChange = (event, newValue) => {
     setSliderValue(newValue);
+    prefsContext.updateLocationPrefs(coordinates, newValue);
+
   };
 
   return (

@@ -9,17 +9,22 @@ export const preferencesContext = createContext();
 function Preferences() {
 
     const [activitiesPrefs, setActivitiesPrefs] = useState([]);
-    const [locationPrefs, setLocationPrefs] = useState([]);
+    const [locationPrefs, setLocationPrefs] = useState({});
     const [timePrefs, setTimePrefs] = useState([]);
 
     const updateActivitiesPrefs = (activities)  => {
         console.log(activities);
         setActivitiesPrefs(activitiesPrefs);
     }
+
+    const updateLocationPrefs = (coordinates, radius) => {
+        console.log({coordinates, radius});
+        setLocationPrefs({coordinates, radius});
+    }
     
     return (
         <>
-            <preferencesContext.Provider value={{updateActivitiesPrefs, setLocationPrefs, setTimePrefs}}>
+            <preferencesContext.Provider value={{updateActivitiesPrefs, updateLocationPrefs, setTimePrefs}}>
                 <Activities/>
                 <LocationComponent/>
                 <TimeMain />
