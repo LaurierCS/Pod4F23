@@ -32,7 +32,6 @@ function Home() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("submitting " + groupName.current);
 
         // Validate once on submit
         validateInput();
@@ -44,7 +43,6 @@ function Home() {
     }
 
     const validateInput = () => {
-        console.log('validating input: ' + groupName.current);
 
         if (groupName.current === '')
             setIsValid(false);
@@ -83,16 +81,10 @@ return (
         </div>
         <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
 
-        <Link to="/location">
+        <Link to="/preferences">
             <Button classList={buttonStyles} text="Preferences" />
         </Link>
 
-        <Link to="/time">
-            <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
-            Next: Time Selection
-            </button>
-
-      </Link>
     </>
     
         

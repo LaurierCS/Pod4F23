@@ -18,12 +18,6 @@ function App() {
           <Route path='/activities' element={<Activities/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/preferences' element={<Preferences/>}/>
-
-          <Route path='location' element={<LocationComponent/>}/>
-
-          <Route path='/time' element={<TimeMain/>}/>
-          <Route path='/timehour' element={<TimeHour/>}/>
-
         </Routes>
       </Router>
   )

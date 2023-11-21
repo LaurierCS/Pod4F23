@@ -3,11 +3,13 @@ import LocationComponent from "../components/LocationComponent";
 import TimeMain from "../components/TimeMain";
 import Activities from "./Activities";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 export const preferencesContext = createContext();
 
 
 function Preferences() {
+    const navigate = useNavigate();
 
     const activitiesPrefs = useRef([]);
     const locationPrefs = useRef({});
@@ -33,6 +35,10 @@ function Preferences() {
         // TODO: make sure there are no empty fields
 
         // TODO: make post request 
+
+
+        navigate('/');
+
     }
     
     return (
@@ -42,7 +48,7 @@ function Preferences() {
                 <LocationComponent/>
                 <TimeMain />
             </preferencesContext.Provider>
-            <Button click={postPrefs} text="Save preferences" classList="bg-green-500" />
+            <Button click={postPrefs} text="Save preferences" classList="bg-green-500 mt-4 mb-4" />
             
         </>
     )
