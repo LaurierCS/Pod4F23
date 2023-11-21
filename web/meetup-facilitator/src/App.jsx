@@ -6,6 +6,7 @@ import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
+import Preferences from './pages/Preferences'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/activities' element={<Activities/>} />
           <Route path='/login' element={<Login/>} />
+          <Route path='/preferences' element={<Preferences/>}/>
 
           <Route path='location' element={<LocationComponent/>}/>
 

@@ -1,6 +1,7 @@
-import { createContext, useEffect, useRef, useState } from "react"
+import { createContext, useContext, useEffect, useRef, useState } from "react"
 import Card from "../components/Card"
 import PopUp from "../components/PopUp";
+import { preferencesContext } from "./Preferences";
 
 export  const activitiesContext = createContext();
 
@@ -11,6 +12,7 @@ function Activities() {
     const [showPopUp, setShowPopUp] = useState(false);
     const [targetCategory, setTargetCategory] = useState([]);
     const pendingPrefs = useRef({});
+    const prefsContext = useContext(preferencesContext);
 
     const subactivities = Object.values(activities);
 
@@ -31,6 +33,8 @@ function Activities() {
         if (pendingPrefs.current[activity])
             data.push(activity);
     })
+
+    prefsContext.updateActivitiesPrefs(data);
 
     useEffect(() => {
         if (!localStorage.getItem('user')) {
