@@ -1,30 +1,38 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import LocationComponent from "../components/LocationComponent";
 import TimeMain from "../components/TimeMain";
 import Activities from "./Activities";
+import Button from "../components/Button";
 
 export const preferencesContext = createContext();
 
 
 function Preferences() {
 
-    const [activitiesPrefs, setActivitiesPrefs] = useState([]);
-    const [locationPrefs, setLocationPrefs] = useState({});
-    const [timePrefs, setTimePrefs] = useState({});
+    const activitiesPrefs = useRef([]);
+    const locationPrefs = useRef({});
+    const timePrefs = useRef([]);
+
+
 
     const updateActivitiesPrefs = (activities)  => {
-        console.log(activities);
-        setActivitiesPrefs(activitiesPrefs);
+        activitiesPrefs.current = activities;
     }
 
     const updateLocationPrefs = (coordinates, radius) => {
-        console.log({coordinates, radius});
-        setLocationPrefs({coordinates, radius});
+        locationPrefs.current = {coordinates, radius};
     }
 
     const updateTimePrefs = (dates) => {
-        console.log(dates);
-        console.log("hello");
+        timePrefs.current = dates;
+    }
+
+    const postPrefs = () => {
+        console.log({activitiesPrefs, locationPrefs, timePrefs})
+
+        // TODO: make sure there are no empty fields
+
+        // TODO: make post request 
     }
     
     return (
@@ -34,6 +42,7 @@ function Preferences() {
                 <LocationComponent/>
                 <TimeMain />
             </preferencesContext.Provider>
+            <Button click={postPrefs} text="Save preferences" classList="bg-green-500" />
             
         </>
     )
