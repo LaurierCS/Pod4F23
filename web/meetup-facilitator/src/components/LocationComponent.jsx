@@ -43,6 +43,7 @@ function LocationComponent() {
 
   return (
     <div className="flex justify-center items-center flex-col h-screen">
+      <h1>Location</h1>
       <div className="flex space-x-4">
         <div className="p-4 border flex justify-center items-center flex-col">
           <h1>Slider</h1>
