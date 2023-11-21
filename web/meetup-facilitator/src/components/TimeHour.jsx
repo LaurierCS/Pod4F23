@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
+import { preferencesContext } from "../pages/Preferences";
 
-export default function TimeHour() {
+export default function TimeHour({dates}) {
+  const prefsContext = useContext(preferencesContext);
   const location = useLocation();
   const navigate = useNavigate(); 
-  const searchParams = new URLSearchParams(location.search);
-  const dates = JSON.parse(searchParams.get("dates"));
+
 
   const [hourlyGrid, setHourlyGrid] = useState([]);
   const [selectedButtons, setSelectedButtons] = useState(new Set());
@@ -21,7 +22,7 @@ export default function TimeHour() {
           <button
             key={`${date}-${hour}`}
             style={buttonStyle}
-            onClick={() => handleButtonClick(date, hour)}
+            onClick={() =>  handleButtonClick(date, hour)}
           >
             {hour}:00
           </button>
@@ -45,7 +46,7 @@ export default function TimeHour() {
     setSelectedButtons(newSelectedButtons);
   };
 
-  const groupButtonsByRow = () => {
+  const groupButtonsByRow = () => {                 
     const groupedSelection = [];
 
     for (const button of selectedButtons) {
@@ -64,16 +65,16 @@ export default function TimeHour() {
     });
 
     setFormattedDates(formattedSelection);
+    prefsContext.updateTimePrefs(formattedSelection);
   };
 
   const handleJumpToLocationPage = () => {
     // Use the navigate function to go to the LocationPage
-    navigate("/LocationPage");
+    navigate("/LocationPage");                                                                                                              
   };
 
   return (
     <div>
-      <h1>TimeHour Page</h1>
       <div>
         <h2>Selected Dates:</h2>
         <ul>
@@ -99,9 +100,6 @@ export default function TimeHour() {
           ))}
         </ul>
       </div>
-
-      {/* Button to jump to LocationPage */}
-      <button onClick={handleJumpToLocationPage}>Jump to LocationPage</button>
     </div>
   );
 }

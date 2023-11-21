@@ -10,7 +10,7 @@ function Preferences() {
 
     const [activitiesPrefs, setActivitiesPrefs] = useState([]);
     const [locationPrefs, setLocationPrefs] = useState({});
-    const [timePrefs, setTimePrefs] = useState([]);
+    const [timePrefs, setTimePrefs] = useState({});
 
     const updateActivitiesPrefs = (activities)  => {
         console.log(activities);
@@ -21,10 +21,15 @@ function Preferences() {
         console.log({coordinates, radius});
         setLocationPrefs({coordinates, radius});
     }
+
+    const updateTimePrefs = (dates) => {
+        console.log(dates);
+        console.log("hello");
+    }
     
     return (
         <>
-            <preferencesContext.Provider value={{updateActivitiesPrefs, updateLocationPrefs, setTimePrefs}}>
+            <preferencesContext.Provider value={{updateActivitiesPrefs, updateLocationPrefs, updateTimePrefs}}>
                 <Activities/>
                 <LocationComponent/>
                 <TimeMain />
