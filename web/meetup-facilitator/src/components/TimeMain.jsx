@@ -6,7 +6,6 @@ import TimeHour from "./TimeHour";
 const format = "MM/DD/YYYY";
 
 export default function TimeMain() {
-  const navigate = useNavigate();
   const [dates, setDates] = useState([
 
   ]);
@@ -16,7 +15,6 @@ export default function TimeMain() {
     if (dates.length > 0) {
       // navigate(`/TimeHour?dates=${JSON.stringify(dates)}`);
       dates.map((date) => {
-        console.log(typeof date, date.format());
       } )
       setShowHours(true);
     } else {
@@ -25,26 +23,34 @@ export default function TimeMain() {
     }
   };
 
-  return (
-    <div className="App">
-      <h1>Time</h1>
-      <div style={{ textAlign: "center" }}>
-        <DatePicker
-          value={dates}
-          onChange={setDates}
-          multiple
-          sort
-          format={format}
-          calendarPosition="bottom-center"
-        />
+  const reselectDates = () => {
+    setShowHours(false);
+  }
+
+  if (!showHours)
+    return (
+      <div className="App">
+        <h1>Time</h1>
+        <div style={{ textAlign: "center" }}>
+          <DatePicker
+            value={dates}
+            onChange={setDates}
+            multiple
+            sort
+            format={format}
+            calendarPosition="bottom-center"
+          />
+        </div>
+        <ul>
+          {dates.map((date, index) => (
+            <li key={index}>{date.format()}</li>
+          ))}
+        </ul>
+        <button onClick={handleSelectTime} className="bg-green-600" >Select hours</button>
       </div>
-      <ul>
-        {dates.map((date, index) => (
-          <li key={index}>{date.format()}</li>
-        ))}
-      </ul>
-      {!showHours && <button onClick={handleSelectTime}>Select hours</button>}
-      {showHours && <TimeHour dates={JSON.parse(JSON.stringify(dates))}/>}
-    </div>
-  );
+    );
+  else
+    return (
+      <TimeHour dates={JSON.parse(JSON.stringify(dates))} reselectDates={reselectDates}/>
+      );
 }
