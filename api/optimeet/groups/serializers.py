@@ -32,5 +32,9 @@ class RecSerializer(serializers.ModelSerializer):
 
 class VotesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Votes
+        model = models.Votes
         fields = '__all__'
+    
+    def create(self, validated_data):
+        validated_data['group_id'] = self.context['group_id']
+        return super(VotesSerializer, self).create(validated_data)

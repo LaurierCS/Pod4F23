@@ -21,19 +21,21 @@ class Group(models.Model):
 
 class UserGroup(models.Model):
     user_id = models.CharField(max_length=64)
-    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
+    group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
     class Meta:
         unique_together = [["group_id","user_id"]]
 
 class Recommendations(models.Model):
-    group_id = models.ForeignKey(Group, models.CASCADE)
+    group_id = models.ForeignKey(Group, models.DO_NOTHING)
     activity_id = models.CharField(max_length=50)
     place_name = models.CharField(max_length=50)
     place_url = models.CharField(max_length=100)
     times = models.JSONField()
     
 class Votes(models.Model):
-    group_id = models.ForeignKey(Group, related_name='group_votes', on_delete=models.CASCADE)
-    user_id = models.CharField(max_length=64, blank=True)
-    results_of_voted = models.CharField(max_length=64, blank=True)
-    
+    rec_id = models.ForeignKey(Recommendations, on_delete=models.DO_NOTHING)
+    group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
+    user_id = models.CharField(max_length=64)
+
+    class Meta:
+        unique_together = [["rec_id", "user_id"]]

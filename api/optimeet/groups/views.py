@@ -54,7 +54,7 @@ def add_users_to_group(request, group_id):
         raise Http404  
     
   
-    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group_id})
+    serializer = serializers.UserGroupSerializer(data = request.data, context={'group_id': group})
     
     
     if serializer.is_valid():
@@ -73,19 +73,19 @@ def votes(request, group_id):
 @csrf_exempt
 @api_view(['POST'])
 def create_vote(request, group_id):
-
     try:
-        group = models.Group.objects.get(group_id=group_id)
+        group = models.Group.objects.get(pk=group_id)
     except models.Group.DoesNotExist:
-        raise Http404  
-    
-    request.data['group_id'] = group_id
-    serializer = serializers.VotesSerializer(data=request.data, context={'group_id': group_id})
+        raise Http404
+
+    serializer = serializers.VotesSerializer(data = request.data, context={'group_id': group})
+
     if serializer.is_valid():
         serializer.save()
         return Response(status=status.HTTP_201_CREATED)
     
-    return Response(status=status.HTTP_400_BAD_REQUEST)    
+    return Response(status=status.HTTP_400_BAD_REQUEST)   
+ 
 # #for testing
 # class UserGroupListAPIView(APIView):
 #     def get(request, self):
