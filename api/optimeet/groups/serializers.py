@@ -15,7 +15,6 @@ class GroupSerializer(serializers.ModelSerializer):
         return super(GroupSerializer, self).create(validated_data)
 
     
-
 class UserGroupSerializer(serializers.ModelSerializer): 
     class Meta:
         model = UserGroup
@@ -29,6 +28,18 @@ class RecSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Recommendations
         fields = '__all__'
+ 
+        
+class PreferencesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Preferences
+        fields = '__all__'
+    
+    def create(self, validated_data):
+        validated_data['group_id'] = self.context['group_id']
+        validated_data['user_id'] = self.context['user_id']
+        
+        return super(PreferencesSerializer, self).create(validated_data)
 
 class VotesSerializer(serializers.ModelSerializer):
     class Meta:
