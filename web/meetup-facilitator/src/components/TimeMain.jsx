@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import DatePicker, { DateObject } from "react-multi-date-picker";
+import DatePicker from "react-multi-date-picker";
 import TimeHour from "./TimeHour";
 
 const format = "MM/DD/YYYY";
@@ -13,9 +12,6 @@ export default function TimeMain() {
 
   const handleSelectTime= () => {
     if (dates.length > 0) {
-      // navigate(`/TimeHour?dates=${JSON.stringify(dates)}`);
-      dates.map((date) => {
-      } )
       setShowHours(true);
     } else {
       setShowHours(false);

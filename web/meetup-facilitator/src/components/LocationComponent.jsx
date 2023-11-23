@@ -62,9 +62,8 @@ function LocationComponent() {
       </div>
 
       <div className="p-4 border flex justify-center items-center mt-4">
-        <h1>Place Google Maps API here</h1>
         <div className="w-50">
-          <GoogleMapComponent address={address} coordinates={coordinates} radius={sliderValue} />
+          {(address !== '') && <GoogleMapComponent address={address} coordinates={coordinates} radius={sliderValue} />}
         </div>
 
       </div>

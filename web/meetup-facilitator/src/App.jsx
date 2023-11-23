@@ -15,7 +15,6 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route path='/activities' element={<Activities/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/preferences' element={<Preferences/>}/>
         </Routes>

@@ -1,12 +1,9 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
+import { useEffect, useState, useContext } from "react";
 import { preferencesContext } from "../pages/Preferences";
 import Button from "./Button";
 
 export default function TimeHour({dates, reselectDates}) {
   const prefsContext = useContext(preferencesContext);
-  const location = useLocation();
-  const navigate = useNavigate(); 
 
 
   const [hourlyGrid, setHourlyGrid] = useState([]);
@@ -69,10 +66,6 @@ export default function TimeHour({dates, reselectDates}) {
     prefsContext.updateTimePrefs(formattedSelection);
   };
 
-  const handleJumpToLocationPage = () => {
-    // Use the navigate function to go to the LocationPage
-    navigate("/LocationPage");                                                                                                              
-  };
 
   return (
     <div>
