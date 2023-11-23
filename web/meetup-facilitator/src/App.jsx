@@ -6,6 +6,7 @@ import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
+import Join from './pages/Join'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
 
           <Route path='/time' element={<TimeMain/>}/>
           <Route path='/timehour' element={<TimeHour/>}/>
+          <Route path='join/:group_id' element={<Join/>}/>
 
         </Routes>
       </Router>
