@@ -21,8 +21,8 @@
     "react-dom": "^18.2.0",
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.17.0",
-    "react-slider": "^2.0.6"
-    "react-multi-date-picker": "^4.4.1",
+    "react-slider": "^2.0.6",
+    "react-multi-date-picker": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
