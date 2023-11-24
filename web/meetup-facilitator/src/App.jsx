@@ -6,7 +6,7 @@ import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
-
+import Recommendation from './components/Recommendation'
 function App() {
 
 
@@ -15,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/activities' element={<Activities/>} />
+          <Route path='/recommendation' element={<Recommendation/>}/>
           <Route path='/login' element={<Login/>} />
 
           <Route path='location' element={<LocationComponent/>}/>

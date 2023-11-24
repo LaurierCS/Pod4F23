@@ -25,6 +25,9 @@ function Navbar() {
             <ul>
                 <li><a href="/activities">Activities</a></li>
             </ul>
+            <ul>
+                <li><a href="/recommendation">Recommendation</a></li>
+            </ul>
             <div className="user-info flex justify-evenly items-center gap-4">
                 <div className="name">{name}</div>
                 <img src={pictureURL} className="profilePicture w-10 h-10 rounded-full" ></img>

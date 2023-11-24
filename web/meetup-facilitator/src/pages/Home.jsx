@@ -86,7 +86,7 @@ return (
 
       <Link to="/location">
         <Button classList={buttonStyles} text="Preferences" />
-
+        </Link>
       <Link to="/time">
         <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
           Next: Time Selection
