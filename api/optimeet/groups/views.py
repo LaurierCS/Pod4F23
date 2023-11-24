@@ -89,27 +89,25 @@ def add_preference_to_group(request, group_id, user_id, format=None):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-@api_view(['GET'])  
+@api_view(['GET', 'POST'])  
 def votes(request, group_id):
-    votes = models.Votes.objects.filter(group_id=group_id)
-    serializer = serializers.VotesSerializer(votes, many=True)
-    return Response(serializer.data)
-    
-@csrf_exempt
-@api_view(['POST'])
-def create_vote(request, group_id):
-    try:
-        group = models.Group.objects.get(pk=group_id)
-    except models.Group.DoesNotExist:
-        raise Http404
+    if request.method == 'GET':
+        votes = models.Votes.objects.filter(group_id=group_id)
+        serializer = serializers.VotesSerializer(votes, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        try:
+            group = models.Group.objects.get(pk=group_id)
+        except models.Group.DoesNotExist:
+            raise Http404
 
-    serializer = serializers.VotesSerializer(data = request.data, context={'group_id': group})
+        serializer = serializers.VotesSerializer(data = request.data, context={'group_id': group})
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response(status=status.HTTP_201_CREATED)
-    
-    return Response(status=status.HTTP_400_BAD_REQUEST)   
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        
+        return Response(status=status.HTTP_400_BAD_REQUEST)
   
 # #for testing
 # class UserGroupListAPIView(APIView):
