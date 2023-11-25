@@ -18,7 +18,7 @@ export default function Join() {
 
     useEffect(() => {
 
-        fetch(import.meta.env.VITE_SERVER + `groups/${group_id}`, {
+        fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,23 @@ export default function Join() {
     
     const joinGroup = () => {
         // make post request to join group
-        console.log("group joined!");
+        const data = {
+            'user_id': localStorage.getItem('email')
+        }
+
+        fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/users/`, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((response) => {
+            if (response.status === 201)
+                navigate(`/preferences/${group_id}`);
+            else
+                navigate('/');
+        });
     }
 
     return (

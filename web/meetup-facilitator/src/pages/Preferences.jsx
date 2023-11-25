@@ -3,7 +3,7 @@ import LocationComponent from "../components/LocationComponent";
 import TimeMain from "../components/TimeMain";
 import Activities from "./Activities";
 import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const preferencesContext = createContext();
 
@@ -11,10 +11,10 @@ export const preferencesContext = createContext();
 function Preferences() {
     const navigate = useNavigate();
 
+    const {group_id} = useParams();
     const activitiesPrefs = useRef([]);
     const locationPrefs = useRef({});
     const timePrefs = useRef([]);
-
 
 
     const updateActivitiesPrefs = (activities)  => {
