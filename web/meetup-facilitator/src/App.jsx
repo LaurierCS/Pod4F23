@@ -1,6 +1,6 @@
 import './App.css'
 import Home from './pages/Home'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
@@ -19,6 +19,8 @@ function App() {
           <Route path='/login' element={<Login/>} />
           <Route path='/preferences/:group_id' element={<Preferences/>}/>
           <Route path='join/:group_id' element={<Join/>}/>
+
+          <Route path='*' element={<Navigate to='/' />} />
         </Routes>
       </Router>
   )

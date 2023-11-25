@@ -17,6 +17,28 @@ function Preferences() {
     const timePrefs = useRef([]);
 
 
+    useEffect(() => {
+
+        fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+            }
+            
+        })
+            .catch((e) => {console.error(e)})
+            .then((response) => (response.json()))
+            .then( (json) => { 
+
+                if (json.length === 0)
+                    navigate('/');
+
+            })
+
+
+    }, []);
+
+
     const updateActivitiesPrefs = (activities)  => {
         activitiesPrefs.current = activities;
     }
