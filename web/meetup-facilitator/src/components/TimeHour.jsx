@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom"; // Import Link and useNavigate from react-router-dom
+import { useEffect, useState, useContext } from "react";
+import { preferencesContext } from "../pages/Preferences";
+import Button from "./Button";
 
-export default function TimeHour() {
-  const location = useLocation();
-  const navigate = useNavigate(); 
-  const searchParams = new URLSearchParams(location.search);
-  const dates = JSON.parse(searchParams.get("dates"));
+export default function TimeHour({dates, reselectDates}) {
+  const prefsContext = useContext(preferencesContext);
+
 
   const [hourlyGrid, setHourlyGrid] = useState([]);
   const [selectedButtons, setSelectedButtons] = useState(new Set());
@@ -21,7 +20,7 @@ export default function TimeHour() {
           <button
             key={`${date}-${hour}`}
             style={buttonStyle}
-            onClick={() => handleButtonClick(date, hour)}
+            onClick={() =>  handleButtonClick(date, hour)}
           >
             {hour}:00
           </button>
@@ -45,7 +44,7 @@ export default function TimeHour() {
     setSelectedButtons(newSelectedButtons);
   };
 
-  const groupButtonsByRow = () => {
+  const groupButtonsByRow = () => {                 
     const groupedSelection = [];
 
     for (const button of selectedButtons) {
@@ -64,18 +63,15 @@ export default function TimeHour() {
     });
 
     setFormattedDates(formattedSelection);
+    prefsContext.updateTimePrefs(formattedSelection);
   };
 
-  const handleJumpToLocationPage = () => {
-    // Use the navigate function to go to the LocationPage
-    navigate("/LocationPage");
-  };
 
   return (
     <div>
-      <h1>TimeHour Page</h1>
+      <Button click={reselectDates} text="Reselect dates" classList="bg-green-500" />
       <div>
-        <h2>Selected Dates:</h2>
+        <h2 className="text-2xl">Selected Dates:</h2>
         <ul>
           {dates.map((date, index) => (
             <li key={index}>{date}</li>
@@ -90,18 +86,15 @@ export default function TimeHour() {
         ))}
       </div>
 
-      <button onClick={groupButtonsByRow}>Save</button>
-      <div>
-        <h2>Saved Selection:</h2>
+      <button onClick={groupButtonsByRow} className="mt-2 mb-2 bg-green-500">Save</button>
+      <div className="mt-3 mb-3">
+        <h2 className="text-2xl">Saved Selection:</h2>
         <ul>
           {formattedDates.map((formattedDate, index) => (
             <li key={index}>{formattedDate}</li>
           ))}
         </ul>
       </div>
-
-      {/* Button to jump to LocationPage */}
-      <button onClick={handleJumpToLocationPage}>Jump to LocationPage</button>
     </div>
   );
 }

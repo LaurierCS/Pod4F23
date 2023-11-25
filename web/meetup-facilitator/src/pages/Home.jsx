@@ -32,7 +32,6 @@ function Home() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("submitting " + groupName.current);
 
         // Validate once on submit
         validateInput();
@@ -44,7 +43,6 @@ function Home() {
     }
 
     const validateInput = () => {
-        console.log('validating input: ' + groupName.current);
 
         if (groupName.current === '')
             setIsValid(false);
@@ -70,7 +68,6 @@ function Home() {
         })
         .then((response) => console.log(response.json()))
 
-        
 
     }
 
@@ -82,18 +79,12 @@ return (
             <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
             <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
         </div>
-      <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+        <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
 
-      <Link to="/location">
-        <Button classList={buttonStyles} text="Preferences" />
-      </Link>
+        <Link to="/preferences">
+            <Button classList={buttonStyles} text="Preferences" />
+        </Link>
 
-      <Link to="/time">
-        <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
-          Next: Time Selection
-        </button>
-
-      </Link>
     </>
     
         
