@@ -66,7 +66,9 @@ function Home() {
                 'Content-Type': 'application/json'
             }
         })
-        .then((response) => console.log(response.json()))
+        .then((response) => {
+            // redirect to preferences page if group successfully created
+        })
 
 
     }
