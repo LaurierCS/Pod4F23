@@ -66,8 +66,11 @@ function Home() {
                 'Content-Type': 'application/json'
             }
         })
-        .then((response) => {
-            // redirect to preferences page if group successfully created
+        .then((response) => (response.json()))
+        .then( (json) => { 
+
+            if (Object.keys(json).length > 1)
+                navigate(`preferences/${json["group_id"]}`)
         })
 
 
