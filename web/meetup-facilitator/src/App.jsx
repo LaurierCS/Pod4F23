@@ -18,7 +18,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/login' element={<Login/>} />
           <Route path='/preferences/:group_id' element={<Preferences/>}/>
-          <Route path='join/:group_id' element={<Join/>}/>
+          <Route path='/join/:group_id' element={<Join/>}/>
 
           <Route path='*' element={<Navigate to='/' />} />
         </Routes>

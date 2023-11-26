@@ -69,7 +69,7 @@ function Home() {
         .then((response) => (response.json()))
         .then( (json) => { 
 
-            if (Object.keys(json).length > 1)
+            if ('group_id' in json)
                 navigate(`preferences/${json["group_id"]}`)
         })
 
