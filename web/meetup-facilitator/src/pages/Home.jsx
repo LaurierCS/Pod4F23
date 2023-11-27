@@ -66,7 +66,12 @@ function Home() {
                 'Content-Type': 'application/json'
             }
         })
-        .then((response) => console.log(response.json()))
+        .then((response) => (response.json()))
+        .then( (json) => { 
+
+            if ('group_id' in json)
+                navigate(`preferences/${json["group_id"]}`)
+        })
 
 
     }
