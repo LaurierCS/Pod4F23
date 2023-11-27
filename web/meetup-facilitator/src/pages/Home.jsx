@@ -32,7 +32,6 @@ function Home() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("submitting " + groupName.current);
 
         // Validate once on submit
         validateInput();
@@ -44,7 +43,6 @@ function Home() {
     }
 
     const validateInput = () => {
-        console.log('validating input: ' + groupName.current);
 
         if (groupName.current === '')
             setIsValid(false);
@@ -68,9 +66,13 @@ function Home() {
                 'Content-Type': 'application/json'
             }
         })
-        .then((response) => console.log(response.json()))
+        .then((response) => (response.json()))
+        .then( (json) => { 
 
-        
+            if ('group_id' in json)
+                navigate(`preferences/${json["group_id"]}`)
+        })
+
 
     }
 
@@ -78,11 +80,11 @@ return (
     <>
         <Navbar />
         <div className='flex-col flex my-3 gap-1'>
-        <label className='text-2xl' htmlFor='new-group-name'>Group Name:</label>
-        <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
-        <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
-      </div>
-      <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
+            <label className='text-2xl' htmlFor='new-group-name'>Group Name:</label>
+            <input ref={groupName} onChange={onChange} className={`border-2 p-2 ${(isValid ? '' : 'border-red-500')} focus:outline-none`} name='new-group-name' id='new-group-name' type='text' placeholder='Enter the group name here.'/>
+            <div className={`text-red-500${(isValid) ? ' invisible' : ' visible'}`}>Please enter a valid group name.</div>
+        </div>
+        <Button click={onSubmit} classList={buttonStyles} text='Create Group' />  
 
       <Link to="/location">
         <Button classList={buttonStyles} text="Preferences" />
@@ -91,8 +93,10 @@ return (
         <button className="fixed bottom-4 right-4 bg-green-700 text-white p-2 rounded">
           Next: Time Selection
         </button>
-
       </Link>
+      <Link to="/preferences">
+            <Button classList={buttonStyles} text="Preferences" />
+        </Link>
     </>
     
         

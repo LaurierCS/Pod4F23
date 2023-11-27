@@ -2,6 +2,7 @@
 import RecGoogleMap from './RecGoogleMap';
 import RecPopup from './RecPopup'; // Import RecPopup component
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 
 const extract_coordinates_from_google_maps_url = (url) => {
   const match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
@@ -21,18 +22,26 @@ const Recommendation = () => {
   const [sampleCoordinates, setSampleCoordinates] = useState([]);
   const [popupTimes, setPopupTimes] = useState([]);
   const [votesData, setVotesData] = useState([]);
-  const isSaveButtonDisabled = isModalOpen && selectedTime === null;
+  const [selectedTime, setSelectedTime] = useState(null);
+  const {group_id} = useParams();
+ 
+  //handle on select recpopup
+  const onSelectHandler = (selectedTime) => {
+    updateVotes(selectedTime, recommendations[selectedDiv].id);
+  };
+
   //update vote when time is selected
   const updateVotes = (selectedTime, recommendationId) => {
     const index = recommendations.findIndex((rec) => rec.id === recommendationId);
     const updatedRecommendations = [...recommendations];
     updatedRecommendations[index].votes = (updatedRecommendations[index].votes || 0) + 1;
     setRecommendations(updatedRecommendations);
+    setSelectedTime(selectedTime);
   };
 
   useEffect(() => {
     // Fetch votes data
-    fetch("http://127.0.0.1:8000/groups/group1/votes/", {
+    fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/votes`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +58,7 @@ const Recommendation = () => {
 
   useEffect(() => {
     // Fetch recommendations data
-    fetch("http://127.0.0.1:8080/groups/group1/recs", {
+    fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/recs`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +68,7 @@ const Recommendation = () => {
       .then((json) => {
         setRecommendations(json);
 
-        // Extract coordinates from place_url and save to sampleCoordinates
+        // Extract coordinates 
         const coordinatesArray = json.map((recommendation) => {
           const coordinates = extract_coordinates_from_google_maps_url(recommendation.place_url);
           return coordinates || { lat: 0, lng: 0 }; // Default to (0, 0) if they cant find coordinates fails
@@ -74,7 +83,21 @@ const Recommendation = () => {
   const openModal = (index) => {
     setSelectedDiv(index);
     setIsModalOpen(true);
-    setPopupTimes(recommendations[index].times || []);
+    const timesArray = recommendations[index].times.map((time) => {
+      const dateObject = new Date(time);
+      const options = {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      };
+      return dateObject.toLocaleString('en-US', options);
+    });
+
+    setPopupTimes(timesArray);
   };
 
   const closeModal = () => {
@@ -92,7 +115,7 @@ const Recommendation = () => {
     );
   }
 
-
+  //webpage format
   return (
     <div className="flex">
       <div className="flex-row w-1/2 px-10"> 
@@ -126,36 +149,36 @@ const Recommendation = () => {
           </div>
         ))}
       </div>
-
+            
       <div className="w-2/3">
-        <RecGoogleMap coordinates={sampleCoordinates} />
+        <RecGoogleMap coordinates={sampleCoordinates} recommendations={recommendations} />
       </div>
 
       {isModalOpen && (<RecPopup
       closeModal={closeModal} 
       times={popupTimes}
-      onSelect={(selectedTime) => {
-        updateVotes(selectedTime, recommendations[selectedDiv].id);
-        closeModal();
-      }}
+      onSelect={onSelectHandler}
       />
       )}
         <button
-        className={`fixed bottom-4 right-4 bg-green-800 text-white py-2 px-4 rounded-md cursor-pointer ${
-          isSaveButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''
+        className={`fixed bottom-4 right-4 bg-green-800 text-white py-2 px-4 rounded-md cursor-pointer
         }`}
         onClick={() => {
-          if (!isSaveButtonDisabled) {
+
+          if (selectedDiv !== null && selectedDiv !== undefined && selectedTime !== null && selectedTime !== undefined) {
             // The logic to save the vote
             const selectedRecommendation = recommendations[selectedDiv];
             const voteData = {
-              rec_id: selectedRecommendation.id,
-              selected_time: selectedTime,
-              // Add any other relevant data for the vote
+              rec_id: {
+                recommendation_id: selectedRecommendation.id,
+                selected_time: selectedTime,
+              },
+              user_id: '123',
+              group_id: group_id,
             };
 
             // Perform an API request to save the vote
-            fetch("http://127.0.0.1:8000/groups/group1/votes/", {
+            fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/votes`, {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',
@@ -164,15 +187,24 @@ const Recommendation = () => {
             })
               .then((response) => response.json())
               .then((json) => {
+                console.log('POST Request Data:', {
+                  method: "POST",
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(voteData),
+                });
                 // Handle the response as needed
                 console.log('Vote saved successfully:', json);
               })
               .catch((error) => {
                 console.error('Error saving vote:', error);
               });
+            } else {
+              // Handle the case where the button is disabled (e.g., show an error message)
+              alert('Cannot save vote. Please select a recommended location and time before saving a vote.');
             }
         }}
-        disabled={isSaveButtonDisabled}
         >
         Save Vote
         </button>

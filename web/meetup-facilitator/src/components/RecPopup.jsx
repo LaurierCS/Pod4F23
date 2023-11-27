@@ -1,12 +1,15 @@
 // RecPopup.jsx
 import React, { useState } from 'react';
 
-const RecPopup = ({ closeModal, times }) => {
+const RecPopup = ({ closeModal, times, onSelect }) => {
+    
     const [selectedButton, setSelectedButton] = useState(null);
 
+    
     const handleButtonClick = (buttonId) => {
         setSelectedButton(buttonId);
     };
+
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
@@ -15,25 +18,26 @@ const RecPopup = ({ closeModal, times }) => {
           <div className="bg-white p-8 rounded-lg shadow-md relative z-10">
             <h2 className="text-xl font-bold mb-4 text-gray-700">Choose a time</h2>
     
-            {Object.entries(times).map(([day, time]) => (
-              <div
-                key={day}
+            {times.map((time, index) => (
+            <div
+                key={index}
                 className={`rounded-lg p-4 mb-4 cursor-pointer ${
-                  selectedButton === day ? 'border-2 border-green-500 text-gray-700 bg-gray-300' : 'bg-gray-300'
+                selectedButton === index ? 'border-2 border-green-500 text-gray-700 bg-gray-300' : 'bg-gray-300'
                 }`}
                 onClick={() => {
-                  handleButtonClick(day);
-                  onSelect(day); 
+                handleButtonClick(index);
+                onSelect(time);
+                
                 }}
-              >
-                <p className={selectedButton === day ? 'text-gray-700' : ''}>
-                  {day}: {time}
+            >
+                <p className={selectedButton === index ? 'text-gray-700' : ''}>
+                {time}
                 </p>
-              </div>
+            </div>
             ))}
     
             <button
-              className="mt-4 bg-slate-500 text-white py-2 px-4 rounded-md"
+              className="mt-4 bg-slate-700 text-white py-2 px-4 rounded-md"
               onClick={closeModal}
             >
               Close
