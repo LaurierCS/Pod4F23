@@ -24,7 +24,9 @@ const Recommendation = () => {
   const [votesData, setVotesData] = useState([]);
   const [selectedTime, setSelectedTime] = useState(null);
   const {group_id} = useParams();
- 
+  const userdata = {
+    'user_id': localStorage.getItem('email')
+  } 
   //handle on select recpopup
   const onSelectHandler = (selectedTime) => {
     updateVotes(selectedTime, recommendations[selectedDiv].id);
@@ -173,7 +175,7 @@ const Recommendation = () => {
                 recommendation_id: selectedRecommendation.id,
                 selected_time: selectedTime,
               },
-              user_id: '123',
+              user_id: userdata,
               group_id: group_id,
             };
 
