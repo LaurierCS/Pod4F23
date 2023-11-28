@@ -33,15 +33,15 @@ class Recommendations(models.Model):
     times = models.JSONField()
 
 class Preferences(models.Model):
-    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
+    group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
     user_id = models.CharField(max_length=64, blank=True)
     
-    category = models.JSONField()
-    subcategory = models.JSONField()
-    time = models.JSONField()
+    categories = models.JSONField()
+    times = models.JSONField()
     
-    loc_lat = models.FloatField()
-    loc_long = models.FloatField()
+    lat = models.FloatField()
+    lon = models.FloatField()
+    radius = models.FloatField()
 
 class Votes(models.Model):
     rec_id = models.ForeignKey(Recommendations, on_delete=models.DO_NOTHING)
