@@ -6,6 +6,7 @@ import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
+import Recommendation from './components/Recommendation'
 import Preferences from './pages/Preferences'
 import Join from './pages/Join'
 
@@ -16,6 +17,8 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home/>} />
+          <Route path='/activities' element={<Activities/>} />
+          <Route path='/recommendation' element={<Recommendation/>}/>
           <Route path='/login' element={<Login/>} />
           <Route path='/preferences/:group_id' element={<Preferences/>}/>
           <Route path='/join/:group_id' element={<Join/>}/>

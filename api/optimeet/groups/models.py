@@ -21,12 +21,12 @@ class Group(models.Model):
 
 class UserGroup(models.Model):
     user_id = models.CharField(max_length=64)
-    group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
+    group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
     class Meta:
         unique_together = [["group_id","user_id"]]
 
 class Recommendations(models.Model):
-    group_id = models.ForeignKey(Group, models.DO_NOTHING)
+    group_id = models.ForeignKey(Group, models.CASCADE)
     activity_id = models.CharField(max_length=50)
     place_name = models.CharField(max_length=50)
     place_url = models.CharField(max_length=100)
@@ -45,11 +45,3 @@ class Preferences(models.Model):
     
     loc_lat = models.FloatField()
     loc_long = models.FloatField()
-
-class Votes(models.Model):
-    rec_id = models.ForeignKey(Recommendations, on_delete=models.DO_NOTHING)
-    group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
-    user_id = models.CharField(max_length=64)
-
-    class Meta:
-        unique_together = [["rec_id", "user_id"]]

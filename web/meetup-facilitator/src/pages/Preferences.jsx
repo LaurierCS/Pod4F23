@@ -59,7 +59,7 @@ function Preferences() {
         // TODO: make post request 
 
 
-        navigate('/');
+        navigate('/recommendation');
 
     }
     
