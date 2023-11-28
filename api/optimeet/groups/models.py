@@ -31,6 +31,9 @@ class Recommendations(models.Model):
     place_name = models.CharField(max_length=50)
     place_url = models.CharField(max_length=100)
     times = models.JSONField()
+    
+    loc_lat = models.FloatField()
+    loc_long = models.FloatField()
 
 class Preferences(models.Model):
     group_id = models.ForeignKey(Group, on_delete=models.CASCADE, default="")
