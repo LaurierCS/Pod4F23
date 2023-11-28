@@ -69,8 +69,12 @@ function Home() {
         .then((response) => (response.json()))
         .then( (json) => { 
 
-            if ('group_id' in json)
-                navigate(`preferences/${json["group_id"]}`)
+            if ('group_id' in json){
+                const link = `http://localhost:5173/join/${json["group_id"]}`;
+                navigator.clipboard.writeText(link);
+                alert(`The link below to invite people to your group has been copied to your clipboard! \n\nhttp://localhost:5173/join/${json["group_id"]}`);
+                navigate(`preferences/${json["group_id"]}`);
+            }
         })
 
 
