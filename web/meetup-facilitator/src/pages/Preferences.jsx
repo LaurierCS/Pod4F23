@@ -86,7 +86,7 @@ function Preferences() {
             .then((response) => {
                 if ("status" in response && response["status"] === 201) {
                     alert("Preferences successfully saved. Redirecting to Recommendations.")
-                    navigate(`/`);
+                    navigate(`/recommendations/${localStorage.getItem("email")}`);
                 } else
                     alert("There was an issue saving preferences. Please try again.");
             })
