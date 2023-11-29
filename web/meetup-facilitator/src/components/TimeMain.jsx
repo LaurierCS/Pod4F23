@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimeHour from "./TimeHour";
 
-const format = "MM/DD/YYYY";
+const format = "YYYY-MM-DD";
 
 export default function TimeMain() {
   const [dates, setDates] = useState([
@@ -47,6 +47,6 @@ export default function TimeMain() {
     );
   else
     return (
-      <TimeHour dates={JSON.parse(JSON.stringify(dates))} reselectDates={reselectDates}/>
+      <TimeHour dates={dates.map((date) => date.format())} reselectDates={reselectDates}/>
       );
 }
