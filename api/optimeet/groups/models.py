@@ -50,6 +50,8 @@ class Votes(models.Model):
     rec_id = models.ForeignKey(Recommendations, on_delete=models.DO_NOTHING)
     group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
     user_id = models.CharField(max_length=64)
+    
+    selected_time = models.CharField(max_length=20)
 
     class Meta:
         unique_together = [["rec_id", "user_id"]]
