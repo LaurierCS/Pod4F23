@@ -24,7 +24,6 @@ function Home() {
 
     const updateGroupName = (e) => {
         groupName.current = e.target.value;
-        console.log(groupName.current);
     }
 
     const onChange = (e) => {
