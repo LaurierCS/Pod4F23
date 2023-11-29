@@ -4,16 +4,7 @@ import RecPopup from './RecPopup'; // Import RecPopup component
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 
-const extract_coordinates_from_google_maps_url = (url) => {
-  const match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
 
-  if (match && match.length === 3) {
-    const [_, latitude, longitude] = match;
-    return { lat: parseFloat(latitude), lng: parseFloat(longitude) };
-  }
-
-  return null;
-};
 
 const Recommendation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +31,38 @@ const Recommendation = () => {
     setRecommendations(updatedRecommendations);
     setSelectedTime(selectedTime);
   };
+  //get coordinates and open modal
+  const openModal = (index) => {
+    setSelectedDiv(index);
+    setIsModalOpen(true);
+
+    const currentRecommendation = recommendations[index];
+
+    // Extract coordinates
+    const coordinates = {
+      lat: currentRecommendation.loc_lat,
+      lng: currentRecommendation.loc_long,
+    };
+
+    setSampleCoordinates([coordinates]);
+
+    // Set other required state variables
+    const timesArray = currentRecommendation.times.map((time) => {
+      const dateObject = new Date(time);
+      const options = {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+      };
+      return dateObject.toLocaleString('en-US', options);
+    });
+
+    setPopupTimes(timesArray);
+  };
 
   useEffect(() => {
     // Fetch votes data
@@ -60,7 +83,7 @@ const Recommendation = () => {
 
   useEffect(() => {
     // Fetch recommendations data
-    fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/recs`, {
+    fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/recs/`, {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
@@ -68,40 +91,17 @@ const Recommendation = () => {
     })
       .then((response) => response.json())
       .then((json) => {
-        setRecommendations(json);
-
-        // Extract coordinates 
-        const coordinatesArray = json.map((recommendation) => {
-          const coordinates = extract_coordinates_from_google_maps_url(recommendation.place_url);
-          return coordinates || { lat: 0, lng: 0 }; // Default to (0, 0) if they cant find coordinates fails
+        json.map((rec) => {
+          rec.times = JSON.parse(rec.times);
         });
-        setSampleCoordinates(coordinatesArray);
+        setRecommendations(json);
       })
       .catch((error) => {
         console.error('Error fetching recommendations:', error);
       });
   }, []);
 
-  const openModal = (index) => {
-    setSelectedDiv(index);
-    setIsModalOpen(true);
-    const timesArray = recommendations[index].times.map((time) => {
-      const dateObject = new Date(time);
-      const options = {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-      };
-      return dateObject.toLocaleString('en-US', options);
-    });
-
-    setPopupTimes(timesArray);
-  };
-
+  
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -160,6 +160,7 @@ const Recommendation = () => {
       closeModal={closeModal} 
       times={popupTimes}
       onSelect={onSelectHandler}
+      coordinates={sampleCoordinates}
       />
       )}
         <button
@@ -171,16 +172,14 @@ const Recommendation = () => {
             // The logic to save the vote
             const selectedRecommendation = recommendations[selectedDiv];
             const voteData = {
-              rec_id: {
-                recommendation_id: selectedRecommendation.id,
-                selected_time: selectedTime,
-              },
+              rec_id: selectedRecommendation.id,
+              selected_time: selectedTime,
               user_id: userdata,
               group_id: group_id,
             };
 
             // Perform an API request to save the vote
-            fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/votes`, {
+            fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/votes/`, {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json',

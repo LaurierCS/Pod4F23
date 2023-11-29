@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
+
 function RecGoogleMap({ coordinates, recommendations }) {
   const mapContainerRef = useRef(null);
   const map = useRef(null);

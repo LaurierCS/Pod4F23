@@ -1,7 +1,7 @@
-// RecPopup.jsx
+
 import React, { useState } from 'react';
 
-const RecPopup = ({ closeModal, times, onSelect }) => {
+const RecPopup = ({ closeModal, times, onSelect, sampleCoordinates }) => {
     
     const [selectedButton, setSelectedButton] = useState(null);
 
