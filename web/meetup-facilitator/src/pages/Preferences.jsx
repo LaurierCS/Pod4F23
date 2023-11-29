@@ -52,9 +52,17 @@ function Preferences() {
     }
 
     const postPrefs = () => {
-        console.log({activitiesPrefs, locationPrefs, timePrefs})
-
+        
         // TODO: make sure there are no empty fields
+        const activities = activitiesPrefs.current;
+        const location = locationPrefs.current;
+        // const time = timePrefs.current;
+
+        const time = timePrefs.current.flat();
+        console.log({time})
+        
+        console.log({activities, location, time});
+        if (activities.length === 0)
 
         // TODO: make post request 
 
