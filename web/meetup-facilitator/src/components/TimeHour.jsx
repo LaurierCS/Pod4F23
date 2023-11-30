@@ -14,11 +14,11 @@ export default function TimeHour({dates, reselectDates}) {
     const hours = Array.from({ length: 16 }, (_, index) => 8 + index);
     const grid = hours.map((hour) => {
       return dates.map((date) => {
-        const isSelected = selectedButtons.has(`${date}-${hour}`);
+        const isSelected = selectedButtons.has(`${date}_${hour}`);
         const buttonStyle = isSelected ? { background: "green" } : {};
         return (
           <button
-            key={`${date}-${hour}`}
+            key={`${date}_${hour}`}
             style={buttonStyle}
             onClick={() =>  handleButtonClick(date, hour)}
           >
@@ -32,7 +32,7 @@ export default function TimeHour({dates, reselectDates}) {
   }, [dates, selectedButtons]);
 
   const handleButtonClick = (date, hour) => {
-    const buttonKey = `${date}-${hour}`;
+    const buttonKey = `${date}_${hour}`;
     const newSelectedButtons = new Set(selectedButtons);
 
     if (newSelectedButtons.has(buttonKey)) {
@@ -48,7 +48,7 @@ export default function TimeHour({dates, reselectDates}) {
     const groupedSelection = [];
 
     for (const button of selectedButtons) {
-      const [date, hour] = button.split("-");
+      const [date, hour] = button.split("_");
       const existingGroup = groupedSelection.find((group) => group.date === date);
 
       if (existingGroup) {
@@ -59,7 +59,8 @@ export default function TimeHour({dates, reselectDates}) {
     }
 
     const formattedSelection = groupedSelection.map((group) => {
-      return `${group.date} - ${group.hours.join(",")}`;
+        return group.hours.map((hour) => `${group.date} ${hour}:00:00`
+      )
     });
 
     setFormattedDates(formattedSelection);

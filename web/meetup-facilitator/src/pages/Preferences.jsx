@@ -52,14 +52,48 @@ function Preferences() {
     }
 
     const postPrefs = () => {
-        console.log({activitiesPrefs, locationPrefs, timePrefs})
+        
+        const activities = activitiesPrefs.current;
+        const location = locationPrefs.current;
 
-        // TODO: make sure there are no empty fields
+        const time = timePrefs.current.flat();
+        console.log({time})
+        
+        console.log({activities, location, time});
+        if (activities.length === 0 || Object.keys(location).length === 0 || time.length === 0)
+            alert("Please make sure at least one option is chosen for every preference.")
 
-        // TODO: make post request 
+        else
+        {
+            const data = {
+                "group_id": group_id,
+                "user_id": localStorage.getItem("email"),
+                "categories": activities,
+                "times": time,
+                "lat": location["coordinates"]["lat"],
+                "lon": location["coordinates"]["lng"],
+                "radius": location["radius"]
+            }
+
+            fetch(import.meta.env.VITE_SERVER + `groups/${group_id}/users/${localStorage.getItem("email")}/prefs/`, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .catch(() => {console.error("Problem making POST request")})
+            .then((response) => {
+                if ("status" in response && response["status"] === 201) {
+                    alert("Preferences successfully saved. Redirecting to Recommendations.")
+                    navigate(`/recommendations/${localStorage.getItem("email")}`);
+                } else
+                    alert("There was an issue saving preferences. Please try again.");
+            })
+
+        }
 
 
-        navigate('/');
 
     }
     
