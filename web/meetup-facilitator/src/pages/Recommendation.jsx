@@ -119,7 +119,7 @@ const Recommendation = () => {
     <div className="flex">
       <div className="flex-row w-1/2 px-10 overflow-y-auto max-h-screen"> 
         <h2 className="py-8 text-2xl">Recommendation Page</h2>
-
+        
         {recommendations.map((recommendation, index) => (
           <div
             key={index}

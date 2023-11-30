@@ -72,14 +72,18 @@ export default function TimeHour({dates, reselectDates}) {
 
   return (
     <div>
-      <Button click={reselectDates} text="Reselect dates" classList="bg-green-500" />
+      <Button click={reselectDates} text="Reselect dates" classList="fixed text-xs bottom-4 left-4 bg-green-800 text-white py-2 px-4 rounded-md"/>
       <div>
-        <h2 className="text-2xl">Selected Dates:</h2>
-        <ul>
-          {dates.map((date, index) => (
-            <li key={index}>{date}</li>
-          ))}
-        </ul>
+      <div className="flex flex-col items-center">
+        <br></br>
+  <h2 className="text-2xl mb-2">Selected Dates:</h2>
+  <ul className="flex list-none py-4">
+    {dates.map((date, index) => (
+      <li key={index} className="mr-2">{date}</li>
+    ))}
+  </ul>
+  <br></br>
+</div>
       </div>
       <div className="hourly-grid">
         {hourlyGrid.map((row, index) => (
@@ -89,9 +93,8 @@ export default function TimeHour({dates, reselectDates}) {
         ))}
       </div>
 
-      <button onClick={groupButtonsByRow} className="mt-2 mb-2 bg-green-500">Save</button>
+      <button onClick={groupButtonsByRow} className="fixed bottom-4 right-4 bg-green-800 text-white py-2 px-4 rounded-md">Save</button>
       <div className="mt-3 mb-3">
-        <h2 className="text-2xl">Saved Selection:</h2>
         <ul>
           {Object.keys(formattedDates).map((key, index) => (
             <li key={index}>{key}: {formattedDates[key].reduce((prev, curr) => `${prev}, ${curr}`)}</li>
