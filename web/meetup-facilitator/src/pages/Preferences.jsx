@@ -56,7 +56,7 @@ function Preferences() {
         const activities = activitiesPrefs.current;
         const location = locationPrefs.current;
 
-        const time = timePrefs.current.flat();
+        const time = timePrefs.current;
 
         if (activities.length === 0 || Object.keys(location).length === 0 || time.length === 0)
             alert("Please make sure at least one option is chosen for every preference.")

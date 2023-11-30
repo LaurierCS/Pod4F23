@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import TimeHour from "./TimeHour";
 
-const format = "YYYY-MM-DD";
+const format = "YYYYMMDD";
 
 export default function TimeMain() {
   const [dates, setDates] = useState([
