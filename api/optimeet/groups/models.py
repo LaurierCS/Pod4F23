@@ -46,6 +46,9 @@ class Preferences(models.Model):
     lon = models.FloatField()
     radius = models.FloatField()
 
+    class Meta:
+        unique_together = [["group_id", "user_id"]]
+
 class Votes(models.Model):
     rec_id = models.ForeignKey(Recommendations, on_delete=models.DO_NOTHING)
     group_id = models.ForeignKey(Group, on_delete=models.DO_NOTHING, default="")
