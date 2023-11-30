@@ -1,16 +1,18 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse, Http404
+from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from rest_framework import status
-from rest_framework.views import APIView
+
+import os
+import dotenv
+import requests
 
 from . import models
-from .models import UserGroup
 from . import serializers
-from .serializers import UserGroupSerializer
+
+
+dotenv.load_dotenv()
 
 @csrf_exempt
 @api_view(['POST'])
@@ -78,11 +80,16 @@ def add_preference_to_group(request, group_id, user_id, format=None):
     except models.Group.DoesNotExist:
         raise Http404
     
+    url = os.getenv("ALGO_URL")
+    
     serializer = serializers.PreferencesSerializer(data=request.data, context={"group_id":group,"user_id":user_id}) 
     
     if serializer.is_valid():
         # Save the preferences
         serializer.save()
+        
+        requests.post(url, params={"group_id": group_id})
+        
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
@@ -104,7 +111,7 @@ def votes(request, group_id):
         serializer = serializers.VotesSerializer(data = request.data, context={'group_id': group})
 
         if serializer.is_valid():
-            serializer.save()
+            serializer.save()                
             return Response(status=status.HTTP_201_CREATED)
         
         return Response(status=status.HTTP_400_BAD_REQUEST)
