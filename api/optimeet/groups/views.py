@@ -21,8 +21,10 @@ def groups(request):
     serializer = serializers.GroupSerializer(data = request.data)
     
     if serializer.is_valid():
-        serializer.save()
-        
+        group = serializer.save()
+        usergroup = models.UserGroup(user_id=group.host_id, group_id=group)
+        usergroup.save()
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
             
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
