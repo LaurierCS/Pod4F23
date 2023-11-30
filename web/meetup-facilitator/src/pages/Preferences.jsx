@@ -57,9 +57,7 @@ function Preferences() {
         const location = locationPrefs.current;
 
         const time = timePrefs.current.flat();
-        console.log({time})
-        
-        console.log({activities, location, time});
+
         if (activities.length === 0 || Object.keys(location).length === 0 || time.length === 0)
             alert("Please make sure at least one option is chosen for every preference.")
 
@@ -86,13 +84,12 @@ function Preferences() {
             .then((response) => {
                 if ("status" in response && response["status"] === 201) {
                     alert("Preferences successfully saved. Redirecting to Recommendations.")
-                    navigate(`/recommendations/${localStorage.getItem("email")}`);
+                    navigate(`/recommendations/${group_id}`);
                 } else
                     alert("There was an issue saving preferences. Please try again.");
             })
 
         }
-        navigate(`/recommendations/${group_id}/`);
 
     }
     
