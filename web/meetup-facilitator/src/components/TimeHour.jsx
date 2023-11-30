@@ -8,7 +8,7 @@ export default function TimeHour({dates, reselectDates}) {
 
   const [hourlyGrid, setHourlyGrid] = useState([]);
   const [selectedButtons, setSelectedButtons] = useState(new Set());
-  const [formattedDates, setFormattedDates] = useState([]);
+  const [formattedDates, setFormattedDates] = useState({});
 
   useEffect(() => {
     const hours = Array.from({ length: 16 }, (_, index) => 8 + index);
@@ -58,10 +58,12 @@ export default function TimeHour({dates, reselectDates}) {
       }
     }
 
-    const formattedSelection = groupedSelection.map((group) => {
-        return group.hours.map((hour) => `${group.date} ${hour}:00:00`
-      )
-    });
+    const formattedSelection = {};
+    for (const group of groupedSelection) {
+      const { date, hours } = group;
+      const formattedHours = hours.map((hour) => `${hour}:00`);
+      formattedSelection[date] = formattedHours;
+    }
 
     setFormattedDates(formattedSelection);
     prefsContext.updateTimePrefs(formattedSelection);
@@ -91,8 +93,8 @@ export default function TimeHour({dates, reselectDates}) {
       <div className="mt-3 mb-3">
         <h2 className="text-2xl">Saved Selection:</h2>
         <ul>
-          {formattedDates.map((formattedDate, index) => (
-            <li key={index}>{formattedDate}</li>
+          {Object.keys(formattedDates).map((key, index) => (
+            <li key={index}>{key}: {formattedDates[key].reduce((prev, curr) => `${prev}, ${curr}`)}</li>
           ))}
         </ul>
       </div>
