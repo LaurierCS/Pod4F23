@@ -92,8 +92,7 @@ function Preferences() {
             })
 
         }
-
-
+        navigate(`/recommendations/${group_id}/`);
 
     }
     
