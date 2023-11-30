@@ -4,7 +4,7 @@ import App from './App.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 
-const apiKey = import.meta.env.VITE_API_KEY
+const apiKey = import.meta.env.VITE_GOOGLE_API_KEY
 
 const renderApp = () => {
   ReactDOM.createRoot(document.getElementById('root')).render(
