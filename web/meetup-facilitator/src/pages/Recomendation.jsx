@@ -141,7 +141,7 @@ const Recommendation = () => {
               </button>
               <div className="flex flex-col items-center">
                 <div className="mb-2">
-                  <strong>Type of Activity:</strong> <br />{recommendation.activity_id}
+                  <strong>Type of Activity:</strong> <br /> {recommendation.activity_id.replace(/[_+]/g, ' ')}
                 </div>
                 <div className=" bg-green-700 w-8 h-8 rounded-full flex items-center justify-center">
                   {votesData.filter(vote => vote.rec_id === recommendation.id).length}
@@ -174,7 +174,7 @@ const Recommendation = () => {
             const voteData = {
               rec_id: selectedRecommendation.id,
               selected_time: selectedTime,
-              user_id: userdata,
+              user_id: userdata.user_id,
               group_id: group_id,
             };
 
@@ -212,5 +212,6 @@ const Recommendation = () => {
     </div>
   );
 };
+
 
 export default Recommendation;

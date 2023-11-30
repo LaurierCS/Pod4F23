@@ -27,8 +27,7 @@ if (apiKey) {
 
   document.head.appendChild(script);
 } else {
-  console.error('Error: Google Maps API key not found.');
-  console.log(import.meta.env.VITE_API_KEY);
+
 
   renderApp();
 }

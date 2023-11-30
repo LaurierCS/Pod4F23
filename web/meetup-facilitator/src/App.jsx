@@ -6,11 +6,9 @@ import Activities from './pages/Activities'
 import LocationComponent from './components/LocationComponent'
 import TimeMain from './components/TimeMain'
 import TimeHour from './components/TimeHour'
-import Recommendation from './components/Recommendation'
-
+import Recommendation from './pages/Recommendation'
 import Preferences from './pages/Preferences'
 import Join from './pages/Join'
-
 function App() {
 
 
