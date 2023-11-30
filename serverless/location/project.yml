@@ -1,0 +1,29 @@
+parameters: {}
+environment: {
+  DB_HOST: "",
+            DB_PASS: "", 
+            DB_USER: "",
+            DB_PORT: ""
+}
+packages:
+    - name: location
+      shared: false
+      environment: {}
+      parameters: {}
+      annotations: {}
+      functions:
+        - name: loc
+          binary: false
+          main: ""
+          runtime: python:default
+          web: true
+          webSecure: false
+          parameters: {}
+          environment: {
+            DB_HOST: "",
+            DB_PASS: "", 
+            DB_USER: "",
+            DB_PORT: ""
+          }
+          annotations: {}
+          limits: {}
