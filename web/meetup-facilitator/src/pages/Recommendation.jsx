@@ -121,7 +121,7 @@ const Recommendation = () => {
   return (
     <div className="flex">
       <div className="flex-row w-1/2 px-10"> 
-        <h2 className="py-8 text-2xl">Recommendation Page</h2>
+        <h2 className="py-8 text-2xl">Recommendation</h2>
 
         {recommendations.map((recommendation, index) => (
           <div

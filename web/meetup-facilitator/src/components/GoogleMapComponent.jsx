@@ -59,7 +59,7 @@ function GoogleMapComponent({ address, coordinates, radius, sliderValue }) {
 
   return (
     <div>
-      <div ref={mapContainerRef} style={{ width: '1000px', height: '400px' }} />
+      <div ref={mapContainerRef} style={{ width: '1100px', height: '450px' }} />
 
 
     </div>

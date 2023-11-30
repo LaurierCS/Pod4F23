@@ -17,7 +17,8 @@ function ContinuousSlider({ value, onChange }) {
         style={{ color: 'darkgreen', marginLeft: '40px' }}
       />
       <Typography variant="body1" sx={{ marginLeft: 1 }}>
-        Maximum distance you would travel: {value} km
+        
+         Maximum distance you would travel: {value} km
       </Typography>
     </div>
   );
@@ -42,26 +43,29 @@ function LocationComponent() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col h-screen">
-      <h1>Location</h1>
-      <div className="flex space-x-4">
-        <div className="p-4 border flex justify-center items-center flex-col">
-          <h1>Slider</h1>
-          <ContinuousSlider value={sliderValue} onChange={handleSliderChange} />
-        </div>
 
-        <div className="p-4 border flex justify-center items-center flex-col">
-          <h1>Enter your location</h1>
-          <AddressInput onAddressChange={handleAddressChange} />
-          {coordinates && (
-            <Typography variant="body2">
-              Coordinates: {coordinates.lat}, {coordinates.lng}
-            </Typography>
-          )}
-        </div>
-      </div>
+    <div className="flex items-center flex-col h-screen p-8">
+  <h1 className="mb-4">Location</h1>
 
-      <div className="p-4 border flex justify-center items-center mt-4">
+  <div className="flex space-x-20">
+    <div className="p-4 flex flex-col w-1/2">
+      <h1 className="text-2xl mb-2">Distance</h1>
+      <ContinuousSlider value={sliderValue} onChange={handleSliderChange} />
+    </div>
+
+    <div className="p-4 flex items-center flex-col w-1/2">
+      <h1 className="text-2xl mb-2">Enter your location</h1>
+      <br></br>
+      <AddressInput onAddressChange={handleAddressChange} />
+      {coordinates && (
+        <Typography variant="body2">
+        </Typography>
+      )}
+    </div>
+  </div>
+
+            
+      <div className="p-4 border flex justify-center items-center mt-4 border-none">
         <div className="w-50">
           {(address !== '') && <GoogleMapComponent address={address} coordinates={coordinates} radius={sliderValue} />}
         </div>

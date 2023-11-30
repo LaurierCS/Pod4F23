@@ -25,8 +25,8 @@ export default function TimeMain() {
 
   if (!showHours)
     return (
-      <div className="App">
-        <h1>Time</h1>
+      <div className="flex items-center flex-col h-screen p-8">
+      <h1 className="mb-4 py-4">Time</h1>
         <div style={{ textAlign: "center" }}>
           <DatePicker
             value={dates}
@@ -37,12 +37,14 @@ export default function TimeMain() {
             calendarPosition="bottom-center"
           />
         </div>
-        <ul>
-          {dates.map((date, index) => (
-            <li key={index}>{date.format()}</li>
-          ))}
-        </ul>
-        <button onClick={handleSelectTime} className="bg-green-600" >Select hours</button>
+        <div className = "py-4">
+          <ul>
+            {dates.map((date, index) => (
+              <li key={index}>{date.format()}</li>
+            ))}
+          </ul>
+        </div>
+        <button onClick={handleSelectTime} className=" bg-green-800 text-white py-2 px-4 rounded-md" >Select Hours</button>
       </div>
     );
   else
