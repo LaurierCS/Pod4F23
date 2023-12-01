@@ -39,29 +39,31 @@ const Recommendation = () => {
     const currentRecommendation = recommendations[index];
 
     // Extract coordinates
-    const coordinates = {
-      lat: currentRecommendation.loc_lat,
-      lng: currentRecommendation.loc_long,
-    };
-
-    setSampleCoordinates([coordinates]);
-
-    // Set other required state variables
-    const timesArray = currentRecommendation.times.map((time) => {
-      const dateObject = new Date(time);
-      const options = {
-        weekday: 'long',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
+    const coordinates = recommendations.map((rec) => {
+      return {
+        lat: rec.loc_lat,
+        lng: rec.loc_long,
       };
-      return dateObject.toLocaleString('en-US', options);
     });
 
-    setPopupTimes(timesArray);
+    setSampleCoordinates(coordinates);
+
+    // Set other required state variables
+    // const timesArray = currentRecommendation.times.map((time) => {
+    //   const dateObject = new Date(time);
+    //   const options = {
+    //     weekday: 'long',
+    //     month: 'long',
+    //     day: 'numeric',
+    //     year: 'numeric',
+    //     hour: 'numeric',
+    //     minute: 'numeric',
+    //     hour12: true,
+    //   };
+    //   return dateObject.toLocaleString('en-US', options);
+    // });
+
+    setPopupTimes(currentRecommendation.times);
   };
 
   useEffect(() => {

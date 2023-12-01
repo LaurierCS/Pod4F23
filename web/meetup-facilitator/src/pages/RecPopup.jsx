@@ -18,22 +18,37 @@ const RecPopup = ({ closeModal, times, onSelect, sampleCoordinates }) => {
           <div className="bg-white p-8 rounded-lg shadow-md relative z-10">
             <h2 className="text-xl font-bold mb-4 text-gray-700">Choose a time</h2>
     
-            {times.map((time, index) => (
-            <div
-                key={index}
-                className={`rounded-lg p-4 mb-4 cursor-pointer ${
-                selectedButton === index ? 'border-2 border-green-500 text-gray-700 bg-gray-300' : 'bg-gray-300'
-                }`}
-                onClick={() => {
-                handleButtonClick(index);
-                onSelect(time);
-                
-                }}
-            >
-                <p className={selectedButton === index ? 'text-gray-700' : ''}>
-                {time}
-                </p>
-            </div>
+            {times.map(time => {
+              const dateObject = new Date(time);
+              const options = {
+                weekday: 'long',
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+              };
+              return {
+                time: time,
+                formattedTime: dateObject.toLocaleString('en-US', options)
+              };
+            }).map((time, index) => (
+              <div
+                  key={index}
+                  className={
+                    `rounded-lg p-4 mb-4 cursor-pointer ${
+                    selectedButton === index ? 'border-2 border-green-500 text-gray-700 bg-gray-300' : 'bg-gray-300'
+                  }`}
+                  onClick={() => {
+                    handleButtonClick(index);
+                    onSelect(time.time);
+                  }}
+              >
+                  <p className={selectedButton === index ? 'text-gray-700' : ''}>
+                  {time.formattedTime}
+                  </p>
+              </div>
             ))}
     
             <button
